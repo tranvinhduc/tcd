@@ -1,0 +1,821 @@
+\input{../header/headerhandout.tex}
+% \newcommand{\cmark}{{\color{blue}\Large\ding{51}}}%
+% \newcommand{\xmark}{{\color{red}\Large\ding{55}}}%
+\title{Nhập môn số học thuật toán} 
+ \author{Toán Chuyên Đề}   
+\institute[HUST]{HUST}
+    
+\maketitle    
+
+\begin{frame}{Tài liệu tham khảo}
+  \begin{itemize}
+  \item J. Hoffstein, J. Pipher, J. H. Silverman,
+    \textit{An Introduction to Mathematical Cryptography},
+    Springer-Verlag – Undergraduate Texts in Mathematics, 2nd Ed.,
+    2014.
+  \item T. H. Cormen, C. E. Leiserson, R. L. Rivest, C. Stein.  \textit{Introduction to Algorithms}, Third Edition (3rd ed.). The MIT Press. 2009.
+
+  \item H. H. Khoái, \textit{Nhập môn số học thuật toán}
+  \end{itemize}
+%  \item Phan .Đ. Diệu, \textit{Logic toán \& cơ sở toán học}. (2003)  
+\end{frame}
+
+\section{Thuật toán Euclid}
+\begin{frame}{Ký hiệu}
+	\begin{itemize}
+		\item $\mathbb{N} = \{1,2,3, \dots\}$
+		\item $\mathbb{Z} = \{\dots,-2,-1,0,1, 2, \dots\}$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}%{Tính chia hết}
+  \begin{dfntn}
+    Xét $a,b \in \mathbb{Z}$. Ta nói 
+    \begin{quotation}
+      $b$ là ước của $a$, hay \\
+      $a$ chia hết cho $b$
+    \end{quotation}
+nếu có một số nguyên $c$ sao cho $$a = bc.$$
+Ta viết  $b\mid a $ để chỉ $a$ chia hết cho $b$. Nếu $a$ không chia hết cho $b$ thì ta viết $b \nmid a$.
+  \end{dfntn}
+\pause 
+  \begin{xmpl}
+    \begin{itemize}
+    \item $847 \mid 485331$ vì $485331 = 847 \cdot 573$.
+    \item $355 \nmid 259943$ vì $259943 = $ 
+    \end{itemize}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{prpstn}
+    Xét $a,b,c \in \Z$.
+    \begin{enumerate}
+    \item Nếu $a\mid b$ và $b\mid c$, thì $a\mid c$.
+    \item Nếu $a\mid b$ và $b\mid a$, thì $a=\pm b$.
+    \item Nếu $a \mid b$ và $a \mid c$, thì $a\mid (b + c)$ và $a\mid (b-c)$.
+    \end{enumerate}
+  \end{prpstn}
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+    Hãy chứng minh mệnh đề trước.
+  \end{xrcs}
+\end{frame}
+
+\begin{frame}
+  \begin{dfntn}
+    \begin{itemize}
+    \item Ước chung của hai số nguyên $a$ và $b$ là số nguyên $d$ thỏa
+      mãn: $$d \mid a\quad \text{và}\quad  d\mid b.$$
+    \item Ta ký hiệu $\gcd(a,b)$ là ước chung \alert{lớn nhất} của $a$ và $b$.
+    \end{itemize}
+  \end{dfntn}
+\pause 
+  \begin{xmpl}
+    \begin{itemize}
+    \item $\gcd(12,18) = 6$ vì $6\mid 12$ và $6\mid 18$ và không có số nào lớn hơn có tính chất này.
+    \item $\gcd(748,2014) = 44$ vì 
+      \begin{align*}
+        \text{các ước của } 748 &= \{1, 2, 4, 11, 17, 22, 34, 44, 68, 187, 374, 748\},\\
+        \text{các ước của } 2024 &=\{1, 2, 4, 8, 11, 22, 23, 44, 46, 88, 92, 184, 253,\\
+ &\qquad\qquad \qquad \qquad \qquad \qquad\quad      506, 1012, 2024\}.
+      \end{align*}
+    \end{itemize}
+
+\vspace{-0.5cm}
+
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}{Một số tính chất của hàm $\gcd$}
+\begin{align*}
+  \gcd(a,b) &= \gcd(b,a)\\
+  \gcd(a,b) &= \gcd(-a,b)\\
+  \gcd(a,0) &=  |a|\\
+  \gcd(a,ka) &= |a| \qquad \text{ với mọi } k \in \Z.\\
+\end{align*}
+  
+\end{frame}
+\begin{frame}
+  \begin{dfntn}[Chia lấy dư]
+    Xét $a,b$ là các số nguyên dương. Ta nói $a$ chia cho $b$ có thương là $q$ và phần dư là $r$ nếu 
+$$
+a = b\cdot q + r \qquad \text{với }\qquad 0\leq r < b.
+$$
+  \end{dfntn}
+
+  \begin{xrcs}
+    Hãy chứng minh rằng các số $q$ và $r$ ở trên xác định  duy nhất bởi $a$ và $b$.
+  \end{xrcs}
+\end{frame}
+
+\begin{frame}{Thuật toán  tính $\gcd(a,b)$}
+  \begin{itemize}
+  \item Chia $a$ cho $b$ ta được
+    $$
+    a = b\cdot q + r \qquad \text{với}\qquad 0\leq r < b.
+    $$
+  \item Áp dụng đẳng thức  
+    $$
+    \gcd(a,b) = \gcd(b,r).
+    $$
+  
+  \end{itemize}
+\end{frame}
+\begin{frame}{Ví dụ: Tính $\gcd(2024,748)$}
+  \begin{align*}
+    2024 &= 748 \cdot 2 + 528\\
+    748 &= 528 \cdot  1 + 220\\
+    528 &= 220 \cdot  2 + 88\\
+    220 &= 88 \cdot  2 + 44 \qquad  \leftarrow \qquad \gcd = 44\\
+    88 &= 44 \cdot  2 + 0
+  \end{align*}
+\end{frame}
+
+
+\begin{frame}
+  \begin{thrm}[Thuật toán Euclid] Xét $a,b$ là hai số nguyên dương với $a\geq b$. Thuật toán sau đây tính $\gcd(a,b)$ sau một số hữu hạn bước.
+    \begin{enumerate}
+    \item Đặt $r_0 = a$ và $r_1 = b$.
+    \item Đặt $i = 1$.
+    \item\label{Ec3} Chia $r_{i-1}$ cho $r_i$, ta được 
+      $$
+      r_{i-1} = r_i \cdot q_i + r_{i+1} \qquad \text{với} \qquad 0\leq r_{i+1} < r_i. 
+      $$
+    \item Nếu $r_{i+1} = 0$, vậy thì 
+      $$
+      r_i = \gcd(a,b)
+      $$
+      và thuật toán kết thúc.
+    \item Ngược lại, $r_{i+1} > 0$, vậy thì đặt $i=i+1$ và quay lại Bước~\ref{Ec3}.  
+    \end{enumerate}
+    
+  \end{thrm}
+\end{frame}
+
+\begin{frame}
+  \begin{thrm}
+     Phép chia (Bước~\ref{Ec3}) của  Thuật toán Euclid thực hiện nhiều nhất 
+    $$
+    \log_2(b) + 2\quad  \text{ lần}.
+    $$  
+  \end{thrm}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Thuật toán Euclid (dạng đệ quy)}
+    \qquad $\text{EUCLID} (a,b)$ \\
+    \qquad \qquad \textbf{if} $b == 0$ \\
+    \qquad \qquad \qquad \textbf{return } $a$\\
+    \qquad \qquad \textbf{else} \\
+    \qquad \qquad \qquad \textbf{return}  $\text{EUCLID} (b,a \mod b)$ 
+  \end{block}
+\end{frame}
+
+\begin{frame}{Thuật toán Euclid mở rộng}
+  \begin{itemize}
+  \item Thuật toán Euclid có thể mở rộng để tìm thêm một số thông tin.
+  \item Cụ thể, chúng ta mở rộng thuật toán để tính thêm hệ số $x,y$ thỏa mãn 
+    $$
+    d = \gcd (a,b) = ax + by. 
+    $$
+  \item Các hệ số $x,y$ có thể âm hoặc bằng $0$. Các hệ số này sẽ có ích sau này khi tích phần tử nghịch đảo trong số học modun.
+  \end{itemize}
+\end{frame}
+
+% \begin{frame}{Ví dụ}
+% Ta tính toán $\gcd(345,92)$ như sau:
+% \begin{align*}
+%   345 = 92\cdot 3 + 69           &\longleftrightarrow\  &            a = &bq_1 + r_1 \\
+%   92  = 69 \cdot 1 + \alert{23}  &\longleftrightarrow\  &            b = &r_1q_2 + \alert{r_2} \\
+%   69 = 23\cdot 3 + 0             &\longleftrightarrow\  &          r_1 = &r_2q_3 + \alert{r_3} 
+% \end{align*}
+
+% Ta được dạng sau đây từ hai phương trình đầu tiên 
+% \begin{align*}
+%   23 &= 92 - 69\cdot 1 &\longleftrightarrow  r_2 &= b -  r_1q_2 \\
+%      &= 92 - (345 - 92\cdot 3)\cdot 1  &\longleftrightarrow  &= b - (a - bq_1)q_2 \\
+%     &= 4\cdot 92 + (-1)\cdot 345 &\longleftrightarrow  &= (1+q_1q_2)b + (-q_2)a 
+% \end{align*}
+
+%\end{frame}
+
+\begin{frame}{Thuật toán Euclid mở rộng}
+  \begin{itemize}
+  \item \textit{Input} : Cặp số nguyên dương $(a,b)$
+  \item \textit{Output}: Bộ ba $(d,x,y)$ thỏa mãn 
+    $$
+    d = \gcd (a,b) = ax + by. 
+    $$ 
+  \end{itemize}
+    \begin{block}{}
+     $\text{EXTENDED-EUCLID} (a,b)$ \\
+     \qquad \textbf{if} $b == 0$ \\
+     \qquad \qquad \textbf{return } $(a,1,0)$\\
+     \qquad \textbf{else  } \\
+     \qquad \qquad $(d',x',y') = \text{EXTENDED-EUCLID} (b,a \mod b)$\\     
+     \qquad \qquad $(d,x,y) = (d',y',x' - \lfloor a/b\rfloor y' )$\\
+     \qquad \qquad \textbf{ return } $(d,x,y)$     
+  \end{block}
+\end{frame}
+
+\begin{frame}{Tính đúng đắn của thuật toán}
+  \begin{itemize}
+  \item Thuật toán tìm $(d,x,y)$ thỏa mãn 
+    $$
+    d = \gcd(a,b) = ax + by
+    $$
+  \item Nếu $b = 0$, vậy thì 
+    $$
+    d = a = a\cdot 1 + b\cdot 0.
+    $$
+  \item Nếu $b \not= 0$, thuật toán EXTENDED-EUCLID sẽ tính $(d', x',y')$ thỏa mãn 
+    \begin{align*}
+      d'=d &= \gcd (b, a \mod b)\\
+           &= b x' + (a \mod b)y'
+    \end{align*}
+  \item Và vậy thì 
+    \begin{align*}
+      d &=  b'x' + (a - b \lfloor a/b\rfloor) y' \\
+        &= a y' + b (x' - \lfloor a/b \rfloor y')
+    \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ví dụ}
+  \begin{block}{}
+      \begin{table}
+        \centering
+      \begin{tabular}{cccccc}
+        $a$ &$b$ &$\lfloor a/b \rfloor$& $d$& $x$& $y$\\
+        \hline 
+        $99$ &$78$ &$1$ &$3$ &$-11$ &$14$ \\
+        $78$ &$21$ &$3$ &$3$ &$3$ &$-11$ \\
+         $21$ &$15$ &$1$ &$3$ &$-2$ &$3$ \\
+        $15$ &$6$ &$2$ &$3$ &$1$ &$-2$ \\
+        $6$ &$3$ &$2$ &$3$ &$0$ &$1$ \\
+        $3$ &$0$ &$-$ &$3$ &$1$ &$0$ \\
+        \hline 
+      \end{tabular}
+    \end{table}
+\vspace{-0.5cm}
+ 
+  \end{block}
+  \begin{itemize}
+  \item Mỗi dòng  của bảng mô tả một mức đệ quy: các giá trị đầu vào $a$ và $b$, giá trị tính $\lfloor a/b \rfloor $, và giá trị trả về  $d , x, y$. 
+  \item Bộ ba $d, x, y$ được trả về trở thành bộ ba $d', x',y'$ của mức tiếp theo. 
+  \item Lời gọi  thủ tục EXTENDED-EUCLID(99,78) trả về $(3,-11,4)$ thỏa mãn $\gcd(99,78) = 3 = 99 \cdot (-11) + 78\cdot 14$.
+  \end{itemize}
+% Vậy ta có 
+% $$
+% 3 = \gcd (99,78) = 99 \cdot (-11) + 79\cdot 14
+% $$
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+    Hãy tính giá trị $$(d,x,y) = \text{EXTENDED-EUCLID}(899,493).$$ 
+  \end{xrcs}
+\end{frame}
+
+\section{Số học đồng dư} 
+\begin{frame}
+  \begin{dfntn}
+    Xét số nguyên $m \geq  1$. Ta nói hai số nguyên $a$ và $b$ là đồng dư theo modun $m$ nếu $a-b$ chia hết cho $m$, và viết
+    $$
+    a \equiv b \pmod{m}
+    $$
+Số $m$ được gọi là modun.
+  \end{dfntn}
+Đồng hồ có thể được viết theo như modun dùng modun  $m = 12$:
+$$
+6+9 = 15 \equiv 3 \pmod{12}\qquad \text{và}\qquad 2 - 3 = - 1 \equiv 11  \pmod{12}  
+$$
+\end{frame}
+
+\begin{frame}
+  \begin{xmpl}
+    \begin{itemize}
+    \item $17 \equiv 7 \pmod{5}$ vì $10 = 17 - 7$ chia hết cho $5$.
+    \item $19 \not\equiv 6 \pmod{11} $ vì  $19 - 6 = 13$ không chia hết cho $11$
+    \end{itemize}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{prpstn}
+    Xét số nguyên $m\geq 1$. 
+    \begin{enumerate}
+    \item<+-> Nếu $a_1 \equiv a_2 \pmod{m}$ và $b_1 \equiv b_2 \pmod{m}$, vậy thì 
+      \begin{align*}
+      a_1\pm b_1 &\equiv a_2\pm b_2 \pmod{m},\quad  \text{và}\\
+        a_1\cdot b_1 &\equiv a_2\cdot b_2 \pmod{m}.
+      \end{align*}
+    \item<+-> Xét số nguyên $a$. Vậy thì tồn tại số nguyên $b$ thỏa mãn 
+      $$
+      a\cdot b \equiv 1 \pmod{m} \text{ \alert{nếu và chỉ nếu}  } \gcd(a,m) = 1.
+      $$
+      Nếu tồn tại số $b$ như vậy thì ta nói $b$ là nghịch đảo của $a$ theo modun $m$.
+    \end{enumerate}
+  \end{prpstn}
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+    \begin{itemize}
+    \item<+-> Lấy $m = 5$ và $a=2$. Rõ ràng $\gcd(2,5) = 1$, vậy thì tồn
+      tại nghịch đảo của $a$ theo modun $5$. Hãy tìm $a^{-1}$.
+    \item<+-> Tương tự $\gcd(4,15) = 1$. Hãy tìm $4^{-1}$ theo modun $15$.
+    \end{itemize}
+  \end{xrcs}
+\end{frame}
+
+\begin{frame}
+  \begin{dfntn}
+    Ta viết 
+    $$
+    \Z/m\Z = \{0,1,2,\dots, m-1\}
+    $$
+và gọi $\Z/m\Z$ là vành số nguyên modun $m$. 
+  \end{dfntn}
+  \begin{rmrk}
+    Khi chúng ta thực hiện phép cộng hoặc nhân trong $\Z/m\Z$ ta luôn chia kết quả cho $m$ và lấy phần dư.
+  \end{rmrk}
+\end{frame}
+
+\begin{frame}
+  \begin{table}
+    \centering
+    $\begin{tabu}{|c||c|c|c|c|c|}
+\hline 
+      +& 0& 1& 2& 3& 4\\
+      \hline \hline
+      0 &0 &1 &2 &3 &4\\
+      \hline 
+      1& 1& 2& 3& 4& 0 \\
+      \hline 
+      2 & 2 & 3 &4 &0 &1 \\
+      \hline 
+      3 & 3& 4 & 0 & 1&2 \\
+      \hline 
+      4 & 4& 0 &1 &2 &3\\
+      \hline 
+    \end{tabu}$ \qquad \qquad 
+    $\begin{tabu}{|c||c|c|c|c|c|}
+\hline 
+      \cdot & 0& 1& 2& 3& 4\\
+      \hline \hline
+      0 &0 &0 &0 &0 &0\\
+      \hline 
+      1& 0& 1& 2& 3& 4 \\
+      \hline 
+      2 & 0 & 2 &4 &1 &3 \\
+      \hline 
+      3 & 0& 3 & 1 & 4&2 \\
+      \hline 
+      4 & 0& 4 &3 &2 &1\\
+      \hline 
+    \end{tabu}$
+
+    \caption{Cộng và nhân theo modun 5}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \begin{dfntn}
+    Ta biết rằng $a$ có nghịch đảo modun $m$
+ nếu và chỉ nếu $\gcd(a,m) = 1$. Các số khả nghịch gọi là \textit{đơn vị}. Ta ký hiệu tập mọi đơn vị bởi 
+ \begin{align*}
+   (\Z/m\Z)^* &= \{a \in \Z/m\Z : \gcd(a,m) = 1 \} \\
+              &=  \{a \in \Z/m\Z : a \text{ có nghịch đảo theo modun  } m \}
+ \end{align*}
+Tập $(\Z/m\Z)^*$ được gọi là \alert{nhóm đơn vị theo modun $m$}. 
+  \end{dfntn}
+\end{frame}
+
+\begin{frame}
+  \begin{xmpl}
+    Nhóm đơn vị theo modun $24$ là
+    $$
+    (\Z/24\Z)^* = \{1,5,7,11,13,17,19,23\}.
+    $$
+Bảng nhân của nhóm này xác định như sau:
+%\begin{center}
+  $$\begin{tabu}{|c||c|c|c|c|c|c|c|c|}
+\hline 
+\cdot &1 &5 &7 &11 &13 &17 &19 &23 \\
+\hline \hline 
+1 &1 &5 &7 &11 &13 &17 &19 &23\\
+\hline 
+5 &5 &1 &11 &7 &17 &13 &23 &19\\
+\hline 
+7 &7 &11 &1 &5 &19 &23 &13 &17\\
+\hline 
+11 &11 &7 &5 &1 &23 &19 &17 &13\\
+\hline 
+13 &13 &17 &19 &23 &1 &5 &7 &11\\
+\hline 
+17 &17 &13 &23 &19 &5 &1 &11 &7\\
+\hline 
+19 &19 &23 &13 &17 &7 &11 &1 &5\\
+\hline 
+23 &23 &19 &17 &13 &11 &7 &5 &1\\
+\hline 
+  \end{tabu}$$
+%\end{center}
+  \end{xmpl}
+\end{frame}
+\begin{frame}
+  \begin{xmpl}
+    Nhóm đơn vị theo modun $7$ là
+    $$
+    (\Z/7\Z)^* = \{1,2,3,4,5,6\}
+    $$
+vì các  từ $1$ đến $6$ đều nguyên tố cùng nhau với $7$. Bảng nhân của nhóm này được xác định như dưới đây.
+  $$\begin{tabu}{|c||c|c|c|c|c|c|}
+\hline 
+\cdot &1 &2 &3 &4 &5 &6\\
+\hline 
+1 &1 &2 &3 &4 &5 &6\\
+\hline 
+2 &2 &4 &6 &1 &3 &5\\
+\hline 
+3 &3 &6 &2 &5 &1 &4\\
+\hline 
+4 &4 &1 &5 &2 &6 &3\\
+\hline 
+5 & 5 &3 &1 &6 &4 &2\\
+\hline 
+6 &6 &5 &4 &3 &2 &1\\
+\hline 
+  \end{tabu}
+  $$
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{dfntn}
+    Phi hàm Euler là hàm $\phi(m)$ định nghĩa bởi luật 
+    \begin{align*}
+    \phi(m) &= \#(\Z/m\Z)^*\\ 
+            &= \#\{0\leq a <m : \gcd (a,m)=1\}.
+    \end{align*}
+  \end{dfntn}
+Ví dụ $$\phi(24) = 8\qquad  \text{và}\qquad \phi(7) = 6.$$
+\end{frame}
+
+\begin{frame}{Tính lũy thừa nhanh}
+  \begin{xmpl}
+    Giả sử ta muốn tính 
+    $$
+    3^{218} \pmod{1000}.
+    $$
+    Đầu tiên, ta viết $218$ ở dạng cơ số $2$:
+    $$
+    218 = 2 + 2^3 + 2^4 + 2^6 + 2^7.
+    $$
+    Vậy thì $3^{218}$ trở thành 
+    $$
+    3^{218} = 3^{2 + 2^3 + 2^4 + 2^6 + 2^7}=3^2\cdot 3^{2^3} \cdot  3^{2^4} \cdot 3^{2^6} \cdot 3^{2^7}. 
+    $$
+Để ý rằng, dễ tính các mũ 
+$$
+3\ ,\ 3^2\ ,\ 3^{2^2}\ , \  3^{2^3}\ , \ 3^{2^4}\ ,\ \dots  
+$$
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{xmpl}[tiếp]
+   Ta lập bảng 
+   $$\begin{tabu}{|c||c|c|c|c|c|c|c|c|} 
+     \hline 
+     i & 0 & 1& 2 &3 &4 &5 &6 &7\\
+     \hline 
+     3^{2^i}\pmod{1000}  &3  &9 &81 &561 &721 &841 &281 &961\\
+\hline 
+   \end{tabu}$$
+rồi tính 
+   \begin{align*}
+     3^{218} &= 3^2\cdot 3^{2^3} \cdot  3^{2^4} \cdot 3^{2^6} \cdot 3^{2^7}\\
+            &\equiv  9 \cdot 561 \cdot 721 \cdot 281 \cdot 961 \pmod{1000}\\
+            &\equiv 489 \pmod{1000}.
+   \end{align*}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}{Thuật toán tính nhanh $a^b \pmod{n}$}% {Thuật toán bình phương liên tiếp}
+  % \begin{itemize}
+  % \item \textit{Input}: Bộ ba $(a,b,n)$
+  % \item \textit{Output}: Giá trị $a^b \pmod{n}$
+  % \end{itemize}
+  \begin{block}{}
+    MODULAR-EXPONENTIATION($a,b,n$)\\
+    \qquad $c= 0$\\
+    \qquad $d = 1$\\
+    \qquad Biểu diễn  $ b = \langle b_k, b_{k-1}, \dots, b_0\rangle_2$ \\
+    \qquad \textbf{for } $i = k$ \textbf{ downto } $0$\\
+    \qquad \qquad $c = 2c$\\
+    \qquad \qquad $d = (d\cdot d)\pmod{n}$\\
+    \qquad \qquad \textbf{if } $b_i == 1$\\
+    \qquad \qquad \qquad $c= c+ 1$\\
+    \qquad \qquad \qquad $d=(d \cdot a) \pmod{n}$\\
+    \qquad \textbf{return } $d$
+  \end{block}
+\end{frame}
+
+\begin{frame}{Ví dụ}
+  \[    
+  \begin{tabu}{c|cccccccccc}
+    i&9&8&7&6&5&4&3&2&1&0 \\
+\hline 
+    b_i &1&0&0&0&1&1&0&0&0&0 \\
+    c &1&2&4&8&17&35&70&140&280&560 \\
+    d &7&49&157&526&160&241&298&166&67&1 \\
+  \end{tabu}
+  \]
+  \begin{itemize}
+  \item Kết quả tính $a^b\pmod{n}$ với 
+    $$
+    a=7, \quad b=560=\langle 1000110000 \rangle, \text{ và } n = 561
+    $$
+  \item Giá trị được chỉ ra sau mỗi bước lặp. 
+  \item Kết quả cuối cùng bằng $1$
+  \end{itemize}
+\end{frame}
+
+\section{Số nguyên tố và trường hữu hạn}
+%\begin{frame}
+\begin{frame}
+  \begin{dfntn}
+    \begin{itemize}
+    \item<+-> \alert{Số nguyên tố} là số nguyên lớn hơn $1$, không chia hết
+      cho số nguyên dương nào ngoài $1$ và chính nó.
+    \item<+-> Số nguyên lớn hơn
+      $1$ không phải số nguyên tố được gọi là \alert{hợp~số}.
+    \end{itemize}
+  \end{dfntn}
+\end{frame}
+
+\begin{frame}{$100$ số nguyên tố đầu tiên}
+  \begin{center}
+    \begin{tabular}[h]{cccccccccc}
+      2& 3& 5& 7& 11& 13& 17& 19& 23& 29\\
+      31& 37& 41& 43& 47& 53& 59& 61& 67 &71\\
+      73& 79& 83& 89& 97& 101& 103& 107& 109 &113\\
+      127& 131& 137& 139& 149& 151& 157& 163& 167 &173\\
+      179& 181& 191& 193& 197& 199& 211& 223& 227 &229\\
+      233& 239& 241& 251& 257& 263& 269& 271& 277 &281\\
+      283& 293& 307& 311& 313& 317& 331& 337& 347 &349\\
+      353& 359& 367& 373& 379& 383& 389& 397& 401 &409\\
+      419& 421& 431& 433& 439& 443& 449& 457& 461 &463\\
+      467& 479& 487& 491& 499& 503& 509& 521& 523 &541
+      % 547,
+                                                    
+
+      % 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617,
+      % 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691,
+      % 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773,
+      % 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859,
+      % 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947,
+      % 953, 967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021,
+      % 1031, 1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091,
+      % 1093, 1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163,
+      % 1171, 1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231,
+      % 1237, 1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301,
+      % 1303, 1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399,
+      % 1409, 1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459,
+      % 1471, 1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531,
+      % 1543, 1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601,
+      % 1607, 1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667,
+      % 1669, 1693, 1697, 1699, 1709, 1721, 1723, 1733, 1741, 1747,
+      % 1753, 1759, 1777, 1783, 1787, 1789, 1801, 1811, 1823, 1831,
+      % 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907,
+      % 1913, 1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997,
+      % 1999, 2003, 2011, 2017, 2027, 2029, 2039, 2053, 2063, 2069,
+      % 2081, 2083, 2087, 2089, 2099, 2111, 2113, 2129, 2131, 2137,
+      % 2141, 2143, 2153, 2161, 2179, 2203, 2207, 2213, 2221, 2237,
+      % 2239, 2243, 2251, 2267, 2269, 2273, 2281, 2287, 2293, 2297,
+      % 2309, 2311, 2333, 2339, 2341, 2347, 2351, 2357, 2371, 2377,
+      % 2381, 2383, 2389, 2393, 2399, 2411, 2417, 2423, 2437, 2441,
+      % 2447, 2459, 2467, 2473, 2477, 2503, 2521, 2531, 2539, 2543,
+      % 2549, 2551, 2557, 2579, 2591, 2593, 2609, 2617, 2621, 2633,
+      % 2647, 2657, 2659, 2663, 2671, 2677, 2683, 2687, 2689, 2693,
+      % 2699, 2707, 2711, 2713, 2719, 2729, 2731, 2741
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \begin{prpstn}
+    Xét số nguyên tố  $p$, và giả sử rằng tích $ab$ của hai số $a$ và $b$ chia hết cho~$p$. Vậy thì $a$ hoặc $b$ phải chia hết cho $p$.\\
+
+Tổng quát hơn nếu 
+$$
+p \mid a_1 a_2\cdots a_n, 
+$$ 
+vậy thì ít nhất một trong các số $a_i$ phải chia hết cho $p$.
+  \end{prpstn} 
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+    Hãy chứng minh mệnh đề trước.
+  \end{xrcs}
+\end{frame}
+
+\begin{frame}
+  \begin{thrm}[Định lý cơ bản của số học]
+    Mọi số nguyên $a\geq 2$ đều phân tích được thành tích các số nguyên tố
+    $$
+    a = p_1^{e_1}\cdot p_2^{e_2}\cdot p_3^{e_3}\cdots p_r^{e_r}.
+    $$
+    Hơn nữa phân tích này là duy nhất nếu  các thừa số được viết với thứ tự không giảm. 
+  \end{thrm}
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+    Hãy chứng minh định lý trước.
+  \end{xrcs}
+\end{frame}
+\begin{frame}
+  \begin{dfntn}
+    \begin{itemize}
+    \item Định lý cơ bản của số học chỉ ra rằng trong phân tích thừa
+      số nguyên tố của số nguyên dương $a$, mỗi số nguyên tố $p$ xuất
+      hiện với một số mũ nào đó. 
+    \item Ta ký hiệu số mũ này là
+      \alert{$\ord_p(a)$} và gọi nó là \alert{cấp} (hoặc \alert{số
+        mũ}) của $p$ trong $a$.
+    \item Để cho tiện, ta kí hiệu $\ord_p(1) = 0$ với mọi số nguyên tố $p$.
+    \end{itemize}
+  \end{dfntn}
+\end{frame}
+
+\begin{frame}
+  \begin{xmpl}
+    Phân tích của $1728$ là 
+    $$
+    1728 = 2^6 \cdot 3^3.
+    $$
+Vậy thì 
+$$
+\ord_2(1726) = 6,\qquad  \ord_3(1726) = 3,
+$$
+và 
+$$
+ \ord_p(1728) = 0 \text{ với mọi số nguyên tố } p\geq 5.  
+$$
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{prpstn}
+    Xét số nguyên tố $p$. Khi đó  mọi phần tử $a$ khác $0$ của $\Z/p\Z$ đều có nghịch đảo, có nghĩa rằng, tồn tại $b$ để 
+    $$  
+    ab \equiv  1 \pmod{p}.
+    $$
+Ta ký hiệu giá trị $b$ này bởi $a^{-1}\bmod  p$, hoặc đơn giản là $a^{-1}$ nếu $p$ đã xác định.
+  \end{prpstn}
+Mệnh đề này chỉ ra rằng 
+$$
+(\Z/p\Z)^* = \{1,2,3,4,\dots, p-1\}.
+$$
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+    Hãy chỉ ra thuật toán tính phần tử nghịch đảo $a^{-1}$ của phần tử $a$ trong nhóm $(\Z/p\Z)^*$.
+  \end{xrcs}
+\end{frame}
+
+\begin{frame}{Trường hữu hạn $\F_p$}
+  \begin{itemize}
+  \item Nếu $p$ nguyên tố, vậy thì tập $\Z/p\Z$ với phép toán cộng, trừ, nhân và luật chia là  một \alert{trường}.
+  \item Trường $\Z/p\Z$ chỉ có hữu hạn phần tử. Đây là trường hữu hạn và ta ký hiệu $\F_p$.
+  \item Ta viết $(\F_p)^*$ cho nhóm $(\Z/p\Z)^*$.
+  \item Trong $\F_p$ người ta thường ký hiệu 
+    $$
+    a = b \text{ thay cho } a\equiv b \pmod{p}. 
+    $$ 
+  \end{itemize}
+\end{frame}
+\section{Lũy thừa và căn nguyên thủy trong trường hữu hạn}
+\begin{frame}{Ví dụ}
+%\setlength{\tabcolsep}{12pt}
+  \begin{table}
+    \centering%
+  $$\begin{tabu}{cccccc}
+    1^1\equiv 1&1^2\equiv 1&1^3\equiv 1&1^4\equiv 1&1^5\equiv 1&1^6\equiv 1\\
+2^1\equiv 2&2^2\equiv 4&2^3\equiv 1&2^4\equiv 2&2^5\equiv 4&2^6\equiv 1\\
+3^1\equiv 3&3^2\equiv 2&3^3\equiv 6&3^4\equiv 4&3^5\equiv 5&3^6\equiv 1\\
+4^1\equiv 4&4^2\equiv 2&4^3\equiv 1&4^4\equiv 4&4^5\equiv 2&4^6\equiv 1\\
+5^1\equiv 5&5^2\equiv 4&5^3\equiv 6&5^4\equiv 2&5^5\equiv 3&5^6\equiv 1\\
+6^1\equiv 6&6^2\equiv 1&6^3\equiv 6&6^4\equiv 1&6^5\equiv 6&6^6\equiv 1
+  \end{tabu}$$
+  \caption{Các lũy thừa theo theo modun $7$}
+\end{table}
+  \begin{qstn}
+    Tại sao cột bên tay phải toàn nhận giá trị $1$?
+  \end{qstn}
+\end{frame}
+
+\begin{frame}
+  \begin{thrm}[Định lý Fermat nhỏ]
+    Xét số nguyên tố $p$ và xét số nguyên $a$. Khi đó 
+    $$
+    a^{p-1} \equiv
+    \begin{cases}
+      1 \pmod{p} &\text{nếu } p \nmid a, \\
+      0 \pmod{p} &\text{nếu } p \mid a.
+    \end{cases}
+    $$
+  \end{thrm}
+\end{frame}
+
+\begin{frame}
+  \begin{xmpl}
+    Số $p = 15485863$ là số nguyên tố, vậy thì 
+    $$
+    2^{15485862} \equiv 1 \pmod{15485863}.
+    $$
+Vậy thì, không cần tính toán ta cũng biết rằng 
+\begin{quote}
+  số $2^{15485862} - 1$ là bội số của $15485863$.
+\end{quote}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{rmrk}
+    Định lý Fermat nhỏ và thuật toán tính nhanh lũy thừa cho ta một phương pháp hợp lý để tính nghịch đảo theo modun $p$. Cụ thể
+    $$
+    a^{-1}\equiv a^{p-2} \pmod {p}.
+    $$
+    Thời gian tính toán của phương pháp này tương tự như dùng thuật toán Euclid mở rộng.
+  \end{rmrk}
+\end{frame}
+\begin{frame}
+  \begin{dfntn}
+    \alert{Cấp của phần tử $a$ theo modun $p$} là số mũ $k > 0$ nhỏ nhất thỏa mãn 
+    $$
+    a^k \equiv 1 \pmod{p}.
+    $$ 
+  \end{dfntn}
+  \begin{prpstn}
+    Xét số nguyên tố $p$ và xét số nguyên $a$ không chia hết cho $p$. Giả sử $a^n\equiv 1 \pmod{p}$. Vậy thì $n$ chia hết cho cấp của $a$ theo modun $p$. Đặc biệt, $p-1$ chia hết cho cấp của $a$.
+  \end{prpstn}
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+    Hãy chứng minh mệnh đề trước.
+  \end{xrcs}
+\end{frame}
+
+\begin{frame}
+  \begin{thrm}[Định lý căn nguyên thủy]
+    Xét số nguyên tố $p$. Khi đó có tồn tại một phần tử $g \in \F_p^*$ thỏa mãn mọi phần tử của $\F_p^*$ đều là một lũy thừa nào đó của $g$. Tức là 
+    $$
+    \F_p^* = \{1, g, g^2, g^3, \cdots, g^{p-2}\}.
+    $$ 
+Các phần tử có tính chất này được gọi là căn nguyên thủy của $\F_p$ hoặc phần tử sinh của $\F_p^*$. Chúng là các phần tử của $\F_p^*$ có cấp $p-1$.
+  \end{thrm}
+\end{frame}
+
+\begin{frame}
+  \begin{xmpl}
+    Trường $\F_{11}$ có $2$ là một căn nguyên thủy, bởi vì trong $\F_{11}$,
+    $$\begin{tabu}{ccccc}
+      2^0 = 1 &  2^1=2 & 2^2 = 4 & 2^3 = 8  &2^4 = 5\\
+      2^5 =10 &  2^6=9 & 2^7 = 7 & 2^8 = 3  & 2^9 = 6. 
+    \end{tabu}$$
+    nhưng $2$ không phải căn nguyên thủy của $\F_{17}$, bởi vì trong $\F_{17}$
+    $$\begin{tabu}{ccccc}
+      2^0 = 1 & 2^1= 2&2^2= 4&2^3= 8&2^4 =  16\\
+      2^5= 15&2^6= 13&2^7 = 9& 2^8 = 1
+    \end{tabu}$$
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+    \begin{itemize}
+    \item Hãy tìm một căn nguyên thủy của trường $\F_{17}$.
+    \item Hãy liệt kê tất cả các căn nguyên thủy của $\F_{17}$.
+    \end{itemize}
+
+  \end{xrcs}
+\end{frame}
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
