@@ -1,0 +1,4 @@
+1. Thuật toán xác suất 
+2. Phương pháp xác suất 
+3. Random walks 
+4. Thống kê 

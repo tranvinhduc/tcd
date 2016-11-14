@@ -1,0 +1,380 @@
+\input{../header/header.tex}
+% \newcommand{\cmark}{{\color{blue}\Large\ding{51}}}%
+% \newcommand{\xmark}{{\color{red}\Large\ding{55}}}%
+\title{Kỳ vọng} 
+ \author{Toán Chuyên Đề}    
+\institute[HUST]{HUST}
+  
+\maketitle  
+ 
+\begin{frame}{Tài liệu tham khảo}
+  \begin{itemize}
+  \item Eric Lehman, F Thomson Leighton \& Albert R Meyer,
+    \textit{Mathematics for Computer Science}, 2013
+    \href{https://www.seas.harvard.edu/courses/cs20/MIT6_042Notes.pdf}{\color{blue}(Miễn
+    phí)}
+  \item Michael Mitzenmacher và Eli Upfal, \textit{Probability and Computing}, 2005
+  \item  Nguyễn Tiến Dũng và Đỗ Đức Thái, \textit{Nhập Môn Hiện Đại Xác Suất \& Thống Kê}.
+%  \item Phan .Đ. Diệu, \textit{Logic toán \& cơ sở toán học}. (2003)  
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{dfntn}
+		Kỳ vọng (hay còn gọi là giá trị trung bình) của biến ngẫu nhiên $R$  trên không gian mẫu $\mathcal{S}$ là 
+		\[
+			\ex[R] = \sum_{w \in \mathcal{S}} R(w) \cdot \pr[w].
+		\]
+	\end{dfntn}
+\end{frame}
+
+\begin{frame}
+	\begin{xmpl}
+		Xét biến ngẫu nhiên 
+		\[
+			R = \text{ kết quả của việc tung con xúc  xắc $6$ mặt}. 			
+		\]
+		Kỳ vọng của $R$:
+		\action<2->{\[
+			\ex[R] = 1\times 1/6 + 2\times 1/6 + \cdots + 6\times 1/6 = 3.5
+		\] 
+		không thuộc miền giá trị của $R$.}
+	\end{xmpl}	
+	\action<3->{\begin{qstn}
+	Nếu $R_n$ là biến ngẫu nhiên với phân phối đều trên $\{1,2, \dots, n\}$, vậy thì
+	\[
+		\ex[R_n] = ?
+	\]		
+	\end{qstn}}
+\end{frame}
+
+\begin{frame}%{Trung vị}
+	\begin{dfntn}
+		Trung vị của biến ngẫu nhiên $R$ là giá trị $x$ thuộc miền giá trị của $R$ thoả mãn 
+		\begin{align*}
+			\pr[R < x] &\leq 1/2\quad \text{và} \\
+			\pr[R > x] &< 1/2.
+		\end{align*}
+	\end{dfntn}
+\action<2->{	\begin{xmpl}
+		Xét biến ngẫu nhiên 
+		\[
+			R = \text{ kết quả của việc tung con xúc  xắc $6$ mặt}. 			
+		\]
+		Trung vị của $R$ là $4$ vì 
+		\begin{align*}
+			\pr[R < 4] &= 3/6\quad \text{và} \\
+			\pr[R > 4] &= 2/6.
+		\end{align*}
+	\end{xmpl}	
+	}
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}{Kỳ vọng của biến ngẫu nhiên chỉ báo}
+	\begin{lmm}
+		Nếu $I_A$ là \defi{biến ngẫu nhiên chỉ báo cho sự kiện $A$}, vậy thì 
+		\[
+			\ex[I_A] = \pr[A].
+		\]
+	\end{lmm}
+\action<2->{
+	\begin{proof}
+		\begin{align*}
+			\ex[I_A] &= 1\cdot \pr[I_A = 1] + 0 \cdot \pr[I_A = 0]\\
+			         &= 1\cdot \pr[I_A = 1]\\
+					 &=  \pr[A].
+		\end{align*}
+	\end{proof}}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{xmpl}
+		Bạn chơi trò tung đồng xu: thắng $\$ 1$ nếu đồng xu sấp, và thua $\$ 1$ nếu đồng xu ngửa 
+		\[
+			R\ =\ \text{ số tiền lãi} 
+		\]  
+		Vậy thì 
+		\[
+			\ex[R] =\action<2->{ 1 \times 1/2 - 1\times 1/2 = 0.}
+		\]
+	\end{xmpl}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{block}{Đánh cuộc}
+		\begin{itemize}
+			\item Nick và Eric gợi ý bạn chơi trò chơi đánh cuộc.
+			
+			\item Mỗi người đặt $\$ 2$ lên bàn  và bí mật viết $H$ hoặc $T$ vào một tờ giấy.
+			\item Một người chơi sẽ tung đồng xu.
+			\item $\$ 6$ sẽ chia đều cho những người viết đúng kết quả.
+			
+			\item Liệu bạn có thể thua?    
+		\end{itemize}
+	\end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{block}{}
+\centering
+	    \includegraphics[width=.7\textwidth]{fig186.pdf}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{qstn}
+	\begin{itemize}
+		\item<+-> Giá trị  
+		\[
+			\ex[\text{ Số tiền Lãi }] = ?
+		\]
+		\item<+-> Chuyên gì xảy ra nếu Eric và Nick luôn đặt ngược nhau?
+	\end{itemize}
+\end{qstn}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{block}{}
+\centering
+	    \includegraphics[width=.7\textwidth]{fig186.pdf}
+	\end{block}
+\end{frame}
+%--- Next Frame ---%
+
+
+
+\begin{frame}
+	\begin{qstn}
+		Trong trường hợp Eric và Nick luôn đặt ngược nhau thì  
+		\[
+			\ex[\text{ Số tiền Lãi }] = ?
+		\] 
+	\end{qstn}
+\end{frame}
+%--- Next Frame ---%
+
+
+\begin{frame}{Làm thế nào để thắng xổ số?}
+	\begin{itemize}
+		\item Người chơi đặt $\$1$ và chọn $4$ số trong khoảng $1$ đến $36$;
+		\item Công ty sổ xố của nhà nước rút ngẫu nhiên $4$ số  trong khoảng $1$ đến~$36$;
+		\item Công ty sổ xố chia đều $1/2$ số tiền thu được cho  những người đoán đúng
+và dành một nửa còn lại cho ngân sách.
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Khám phá của Herman Chernoff}
+\begin{minipage}[c]{0.6\textwidth}
+	Phần lớn mọi người chọn số giống nhau. Có vẻ như họ nghĩ theo cũng một cách.
+	\bigskip
+
+	Vậy, họ hợp tác với nhau để giành phần thua! Nếu họ đoán đúng, họ sẽ phải chia sẻ phần thưởng với nhiều người khác.
+	\bigskip
+		
+	Vậy thì, chọn ngẫu nhiên là một lợi thế. Kỳ vọng Lãi  là $+\$0.7$ chứ không phải là $-\$0.5$.
+\end{minipage}\qquad 
+	\begin{minipage}[c]{0.3\textwidth}
+		\begin{figure}[h]
+		  \centering
+		    \includegraphics[width=\textwidth]{Chernoff.pdf}
+		\end{figure}
+		
+	\end{minipage}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Định nghĩa tương đương của kỳ vọng}
+	\begin{thrm}
+		$$\ex[R] = \sum_{x \in Range(R)} x \cdot \pr[R = x].$$
+	\end{thrm}
+	\vspace{-0.5cm}
+	
+	\action<2->{	\begin{align*}
+			\ex[R] &=  \sum_{w \in \mathcal{S}} R(w)\pr[w] \\
+			       \action<3->{&=  \sum_{x \in Range(R)}\ \sum_{w \in [R=x]} R(w)\pr[w] \\}
+			       \action<4->{&=  \sum_{x \in Range(R)}\ \sum_{w \in [R=x]} x\cdot \pr[w] \\}
+			\action<5->{	   &= \sum_{x \in Range(R)}\ x \left(\sum_{w \in [R=x]} \pr[w]\right)  }
+			\action<6->{	   = \sum_{x \in Range(R)} x \cdot \pr[R = x].}
+		\end{align*}}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{crllr}
+		Nếu $R: \mathcal{S} \longrightarrow \mathbb{N}$ thì
+		\[
+			\ex[R] = \sum_{i=0}^{\infty} i\cdot \pr[R=i]. 
+		\]
+	\end{crllr}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{thrm}
+		Nếu $R: \mathcal{S} \longrightarrow \mathbb{N}$ thì
+		\[
+			\ex[R] = \sum_{i=0}^{\infty} \pr[R>i]. 
+		\]		
+	\end{thrm}
+	\begin{proof}
+	\begin{tabular}{ccr}
+	$\pr[R>0]$ &$=$ &$\pr[R=1] + \pr[R=2] + \pr[R=3] + \cdots$ \\
+	$\pr[R>1]$ &$=$ &           $\pr[R=2] + \pr[R=3] + \cdots$ \\
+	$\pr[R>2]$ &$=$ &                      $\pr[R=3] + \cdots$ \\
+	           &$\vdots$ &  \\
+	\hline\\
+	$\sum_{i=0}^{\infty} \pr[R>i]$ &$=$ &$\sum_{i=0}^{\infty} i\cdot\pr[R=i]\hfill\hfill$
+	\end{tabular}	
+		
+	\end{proof}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{qstn}
+		Xét một hệ thống chạy với xác suất xảy ra lỗi (độc lập) tại mỗi bước là~$p$.  
+		\[
+			R = \text{ bước  xuất hiện lỗi }.
+		\]  
+		Hãy tính $\ex[R]$.
+	\end{qstn}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{sol}
+		\begin{align*}
+			\action<+->{\ex[R] &= \sum_{i=0}^{\infty} i\cdot \pr[R = i]} \action<+->{= \sum_{i=0}^{\infty} \overbrace{\pr[R > i]}^{{\color{blue!60}\pr[ \text{ $i$ bước đầu OK  }]}} \\}
+			\action<+->{&=\sum_{i=0}^{\infty} \pr[\text{ OK bước 1 }]\cdot \pr[\text{ OK bước 2 }] \cdots\pr[\text{ OK bước $i$ }  ] \\}
+			\action<+->{&= \sum_{i=0}^{\infty} (1- p)^i\\}
+			\action<+->{&= \frac{1}{1 - (1-p)}\\}
+			\action<+->{& = 1/p}
+		\end{align*}
+	\end{sol}
+\end{frame}
+
+\begin{frame}
+	\begin{qstn}
+		Về trung bình, cần sinh bao nhiêu lần thì có được con gái biết rằng $\pr[ \text{ sinh con gái }] = 1/2$?
+	\end{qstn}
+\end{frame}
+
+%--- Next Frame ---%
+\begin{frame}
+	\begin{qstn}
+		Xét $D$ là thời gian trễ của gói tin. Nếu 
+		\[
+			\pr[D>i] = 1/i
+		\]
+		thì thời gian trễ trung bình của gói tin bằng bao nhiêu?
+	\end{qstn}
+\action<2->{		\begin{align*}
+			\ex[D] &= \sum_{i=1}^{\infty} \pr[D\geq i] \\
+			       \action<3->{&= \sum_{i=1}^{\infty} 1/i}\action<4->{ = \infty.}
+		\end{align*}
+}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tính tuyến tính của kỳ vọng}
+	\begin{thrm}
+		Với các biến ngẫu nhiên $R_1,R_2$ (không nhất thiết phải độc lập) trên không gian xác suất $\mathcal{S}$,
+		\[
+			\ex[R_1 + R_2] = \ex[R_1] + \ex[R_2].
+		\]
+	\end{thrm}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Tính tuyến tính của kỳ vọng}
+	\begin{crllr}
+		Với các biến ngẫu nhiên $R_1,R_2,\dots, R_n$ (không nhất thiết phải độc lập) trên không gian xác suất $\mathcal{S}$,
+		\[
+			\ex[R_1 + R_2 + \cdots + R_n] = \ex[R_1] + \ex[R_2] + \cdots + \ex[R_n].
+		\]
+	\end{crllr}
+	
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{xmpl}
+		Tung hai con xúc xắc và đặt 
+		\begin{align*}
+			R_1 = \text{ kết quả của con xúc xắc } 1 \\
+			R_2 = \text{ kết quả của con xúc xắc } 2 			
+		\end{align*}
+		Vậy thì 
+		\begin{align*}
+				\ex[R_1 + R_2] \action<2->{&= \ex[R_1] + \ex[R_2]\\}
+				               \action<3->{&= 3.5 + 3.5 = 7.}
+		\end{align*}
+	\end{xmpl}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{block}{Bài toán kiểm tra mũ}
+		Có $n$ người đàn ông đến Casino. Mỗi người có một cái mũ. Khi đến, họ cất mũ lên giá.  Khi về, mỗi người lấy ngẫu nhiên một chiếc mũ. Đặt 
+		\[
+			R = \text{ Số người lấy đúng mũ của mình. }
+		\] 
+		Hãy tính $\ex[R]$.
+	\end{block}
+\action<2->{	\begin{align*}
+		\ex[R] &= \sum_{i=0}^n k\cdot \pr[R = k] \\
+		\pr[R=k] &= \begin{cases}
+			\frac{1}{k!(n-k)!} & \text{ với } k \leq n-2 \\
+			0 & \text{ với } k = n-1 \\
+			\frac{1}{n!} & \text{ với } k =  n 
+		\end{cases} \qquad (\text{\color{red}Sai})
+	\end{align*}}
+\action<3->{	Bài toán có vẻ khó!}
+\end{frame}
+%--- Next Frame ---%
+%--- Next Frame ---%
+\begin{frame}
+	\begin{block}{Một lời giải dễ}
+	Đặt 
+	\[
+		R_i = \begin{cases}
+			1 & \text{ nếu người thứ $i$ lấy đúng mũ } \\
+			0 & \text{ ngược lại }
+		\end{cases}
+	\]
+	\action<2->{Ta có 
+	\[
+		R = R_1 + R_2 + \cdots + R_n. 
+	\]}
+	\action<3->{Vậy thì
+	\begin{align*}
+		\ex[R] &= \ex[R_1] + \ex[R_2] + \dots + \ex[R_n] \\		
+		       \action<4->{&= \pr[R_1 = 1] + \pr[R_2 = 1] + \cdots + \pr[R_n = 1] \\}
+			\action<5->{   &= 1/n + 1/n + \cdots + 1/n \\}
+			\action<6->{   &= 1.}
+	\end{align*}}		
+	\end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Bài tập}
+  \begin{itemize}
+  \item Một con khỉ đánh máy với  bàn phím chỉ có $26$ chữ cái thường.
+  \item Mỗi ký tự được chọn độc lập và theo phân phối đều trên bảng chữ.
+  \item Nếu con khỉ đánh $1,000,000$ ký tự, vậy trung bình có bao nhiêu xâu ``proof'' xuất hiện?
+  \end{itemize}
+\end{frame}
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

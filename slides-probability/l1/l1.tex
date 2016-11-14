@@ -1,0 +1,246 @@
+%\input{../header/headerhandout.tex}
+\input{../header/header.tex}
+
+% \newcommand{\cmark}{{\color{blue}\Large\ding{51}}}%
+% \newcommand{\xmark}{{\color{red}\Large\ding{55}}}%
+\title{Nhập Môn Xác Suất Rời Rạc} 
+ \author{Toán Chuyên Đề}   
+\institute[HUST]{HUST}
+ 
+\maketitle
+
+\begin{frame}{Tài liệu tham khảo}
+  \begin{itemize}
+  \item Eric Lehman, F Thomson Leighton \& Albert R Meyer,
+    \textit{Mathematics for Computer Science}, 2013
+    \href{https://www.seas.harvard.edu/courses/cs20/MIT6_042Notes.pdf}{\color{blue}(Miễn
+    phí)}
+  \item Michael Mitzenmacher và Eli Upfal, \textit{Probability and Computing}, 2005
+%  \item Phan .Đ. Diệu, \textit{Logic toán \& cơ sở toán học}. (2003)  
+  \end{itemize}
+\end{frame}
+
+\section{Trò chơi Monty Hall}
+\begin{frame}{Bài toán Monty Hall}
+  \begin{itemize}
+  \item Có $3$ cánh cửa A,B, và C; đằng sau $1$ trong $3$ cánh cửa đó là một món quà lớn; còn sau hai cửa còn lại không có gì.
+  \item Người chơi được chọn $1$ trong $3$ cánh cửa, nếu chọn đúng cửa có quà thì được nhận quà.
+  \item Sau khi người chơi đã chọn một cửa, người dẫn chương trình Carol  mở một trong hai cửa còn lại nhưng sẽ chỉ mở cửa không có quà.
+  \item Sau đó người chơi được quyền chọn, hoặc là giữ cửa mình chọn ban đầu, hoặc đổi lấy cửa chưa được mở còn lại.
+  \item Theo bạn thì người chơi có nên đổi không?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Mô phỏng}
+  \href{open /data/Dropbox/Teaching/BachKhoa/Courses/ToanChuyenDe2015/simulation/MontyHall.java}{\beamergotobutton{Source Code:  MontyHall.java}}
+\end{frame}
+\begin{frame}
+  \begin{dfntn}
+     \defi{Không gian mẫu}, thường được kí hiệu là $\mathcal{S}$, của một thí nghiệm hay của một phép thử ngẫu nhiên là tập hợp của tất cả các \defi{kết quả} có thể xảy ra. 
+  \end{dfntn}
+
+  \begin{xmpl}
+    Một kết quả của trò chơi Monty Hall bao gồm:
+    \begin{enumerate}
+    \item cửa có chứa phần thưởng,
+    \item cửa được người chơi chọn, và
+    \item cửa được người dẫn chương trình Carol mở.
+    \end{enumerate}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{xmpl}
+    Kết quả $(B, A, C)$ có nghĩa rằng 
+    \begin{enumerate}
+    \item cửa $B$ có chứa phần thưởng,
+    \item người chơi chọn cửa $A$, và
+    \item người dẫn chương trình Carol cửa $C$.
+    \end{enumerate}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{xmpl}
+    \begin{itemize}
+    \item $(A,B,A)$ không phải là một kết quả.
+    \item $(B,A,A)$
+    \item $(A,A,B)$
+    \item $(A,A,C)$
+    \end{itemize}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+   % \begin{center}
+      \begin{block}{}
+        \begin{center}
+          \includegraphics[scale=0.5]{fig173.pdf}
+        \end{center}
+      \end{block}
+    %\end{center}
+\end{frame}
+
+
+\begin{frame}
+   % \begin{center}
+      \begin{block}{}
+        \begin{center}
+          \includegraphics[scale=0.5]{fig174.pdf}
+        \end{center}
+      \end{block}
+    %\end{center}
+\end{frame}
+
+\begin{frame}
+  \begin{dfntn}
+    Một \defi {không gian xác suất} bao gồm một không gian mẫu $\mathcal{S}$ và một \defi {hàm xác suất}  
+    \[
+   \pr[.] :\ \mathcal{S} \longrightarrow \mathbb{R}.
+    \]
+Hàm này  thỏa mãn:
+\begin{enumerate}
+\item Với mọi $w \in \mathcal{S}$,\quad  $0 \leq \pr[w] \leq 1$,
+\item $\sum_{w \in \mathcal{S}}\ \pr[w] = 1 $.
+\end{enumerate} 
+  \end{dfntn}
+
+$\pr[w]$ := ``Xác suất để kết quả của thử nghiệm  là  $w$''. 
+\end{frame}
+
+\begin{frame}
+   % \begin{center}
+      \begin{block}{}
+        \begin{center}
+          \includegraphics[scale=0.5]{fig175.pdf}
+        \end{center}
+      \end{block}
+    %\end{center}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Luật tích}
+    Xác suất của một kết quả là tích của các xác suất trên đường đi trong cây dẫn đến kết quả đó.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    \pr[\text{người chơi đổi  cửa mà thắng}]\ =\ ?
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+   % \begin{center}
+      \begin{block}{}
+        \begin{center}
+          \includegraphics[scale=0.5]{fig175.pdf}
+        \end{center}
+      \end{block}
+    %\end{center}
+\end{frame}
+
+\begin{frame}
+  \begin{dfntn}
+    Mỗi  \defi{sự kiện} là  một tập con của không gian mẫu.
+  \end{dfntn}
+
+  \begin{xmpl}
+    $E_L = $ sự kiện người chơi thua khi chọn chiến lược ``đổi cửa''.
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{dfntn}
+    Xác suất một sự kiện $E$ xuất hiện bằng 
+    \[
+    \pr[E] = \sum_{w \in E} \pr [w].
+    \]
+  \end{dfntn}
+
+  \begin{xmpl}
+    $\pr [\text{sự kiện thắng mà  không "đổi cửa"}]$ = ?
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+   % \begin{center}
+      \begin{block}{}
+        \begin{center}
+          \includegraphics[scale=0.5]{fig175b.pdf}
+        \end{center}
+      \end{block}
+    %\end{center}
+\end{frame}
+
+\section{Những con xúc xắc kỳ lạ}
+\begin{frame}
+  \begin{block}{Xúc xắc với các mặt đối diện bằng nhau}
+    \begin{center}
+      \includegraphics [scale = 0.5]{xucxac.pdf} 
+    \end{center}
+  \end{block}
+Tôi sẽ trả bạn $105K$ nếu bạn lắc được số lớn hơn, nhưng bạn chỉ phải trả $100K$ nếu tôi được số lớn hơn. Bạn được chọn một con xúc xắc trước, tôi sẽ chọn một trong hai con còn lại. 
+\end{frame}
+
+\begin{frame}{4 bước để tính xác suất của sự kiện : $A$ thắng $B$}
+  \begin{enumerate}
+  \item Tìm không gian mẫu 
+    $$
+    \mathcal{S} = \{(2,1),(2,5),(2,9),(6,1),(6,5),(6,9), (7,1),(7,5),(7,9) \}
+    $$
+  \item Định nghĩa sự kiện cần quan tâm 
+    $$
+    \{(2,1), (6,1), (6,5), (7,1), (7,5)\}
+    $$
+
+  \item Xác định xác suất của mỗi kết quả
+  \item Tính xác suất của sự kiện quan tâm
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+  % \begin{center}
+  \begin{block}{}
+    \begin{center}
+      \includegraphics[scale=0.55]{fig177.pdf}
+    \end{center}
+  \end{block}
+  % \end{center}
+\end{frame}
+
+\begin{frame}
+  \begin{qstn}
+    \begin{itemize}
+    \item   $\pr[A \text{ thắng } B]\ =\  ?$
+    \item $\pr[A \text{ thắng } C]\ =\  ?$
+    \item $\pr[B \text{ thắng } C]\ =\  ?$
+    \end{itemize}
+  \end{qstn}
+\end{frame}
+
+\begin{frame}
+  \begin{dfntn}
+    Một không gian xác suất hữu hạn  $\mathcal{S}$ được gọi là \defi{đều} nếu với mọi kết quả $w \in \mathcal{S}$, ta có  $\pr[w] = 1/|\mathcal{S}|$.
+  \end{dfntn}
+\end{frame}
+
+\begin{frame}
+  % \begin{center}
+  \begin{block}{}
+    \begin{center}
+      \includegraphics[scale=0.55]{fig177.pdf}
+    \end{center}
+  \end{block}
+  % \end{center}
+\end{frame}
+ 
+\begin{frame}
+  \begin{xrcs}
+   Problem 3.
+  \end{xrcs}
+\end{frame}
+\end{document}
+
+

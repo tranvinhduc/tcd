@@ -1,0 +1,259 @@
+%\input{../header/headerhandout.tex}
+\input{../header/header.tex}
+
+% \newcommand{\cmark}{{\color{blue}\Large\ding{51}}}%
+% \newcommand{\xmark}{{\color{red}\Large\ding{55}}}%
+\title{Xác suất có điều kiện} 
+ \author{Toán Chuyên Đề}
+\institute[HUST]{HUST}
+     
+\maketitle
+
+\begin{frame}{Tài liệu tham khảo}
+  \begin{itemize}
+  \item Eric Lehman, F Thomson Leighton \& Albert R Meyer,
+    \textit{Mathematics for Computer Science}, 2013
+    \href{https://www.seas.harvard.edu/courses/cs20/MIT6_042Notes.pdf}{\color{blue}(Miễn
+    phí)}
+  \item Michael Mitzenmacher và Eli Upfal, \textit{Probability and Computing}, 2005
+  \item  Nguyễn Tiến Dũng và Đỗ Đức Thái, \textit{Nhập Môn Hiện Đại Xác Suất \& Thống Kê}.
+%  \item Phan .Đ. Diệu, \textit{Logic toán \& cơ sở toán học}. (2003)  
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Xác suất có điều kiện}
+    $\pr[A\ |\  B]$ = xác suất của sự kiện $A$ nếu  sự kiện $B$ xảy ra.
+  \end{block}
+\begin{xmpl}
+  \begin{itemize}
+  \item $F =$ sự kiện phần thưởng được đặt ở cửa $A$.
+  \item $E  =$ sự kiện người chơi chọn cửa $A$.
+  \item Vậy thì 
+    $$
+    \pr [E \ | \ F] = 1/3. 
+    $$
+Tại sao?
+  \end{itemize}
+\end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{}
+    \begin{center}
+      \includegraphics[scale=0.5]{fig175b.pdf}
+    \end{center}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \begin{dfntn}
+    $$
+    \pr [A \mid B] = \frac{\pr[A \cap B]}{\pr[B]}
+    $$
+    Nếu $\pr [B] = 0$ thì $\pr [A \mid B]$ không xác định. 
+  \end{dfntn}
+
+  \begin{xmpl}
+    \begin{itemize}
+    \item $F = $ sự kiện phần thưởng đặt ở cửa $A$
+    \item $E = $ sự kiện người chơi chọn cửa $A$.
+    \item Hỏi 
+      $$
+      \pr [E \cap F] = ?
+      $$
+    \end{itemize}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{}
+    \begin{center}
+      \includegraphics[scale=0.5]{fig175b.pdf}
+    \end{center}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+
+    \begin{itemize}
+    \item     Giả sử ta có hai đồng xu. 
+    \item Đồng xu thật\quad  $\pr [\text{ngửa}] = \pr[\text{xấp}] = 1/2$
+    \item Đồng xu giả\quad  $\pr [\text{ngửa}] = 1,\quad \pr[\text {xấp}] = 0$
+    \item     Lấy một đồng với mặt ngửa lên trên, hãy  tính xác suất để đồng đó là thật.
+    \end{itemize}
+  \end{xrcs}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Luật tích}
+Nếu $\pr[B] \not = 0$, thì 
+    $$\pr [A \cap B] = \pr [B]\cdot  \pr[A \mid B]$$
+  \end{block}
+
+  \begin{xmpl}
+    \begin{itemize}
+    \item $F = $ sự kiện phần thưởng đặt ở cửa $A$
+    \item $E = $ sự kiện người chơi chọn cửa $A$.
+      $$
+      \pr [E \cap F] = \pr [F] \cdot \pr[E \mid F] = 1/3 \times 1/3
+      $$
+    \end{itemize}     
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{xrcs}
+    Hãy tìm công thức cho  luật tích của  $3$ tập
+    $$
+    \pr [E_1 \cap E_2 \cap E_3]\ =\ ?
+    $$ 
+  \end{xrcs}
+\end{frame}
+
+\begin{frame}{Best-of-three playoff}
+  \begin{quotation}\color{blue!70}
+    A best-of-three playoff là kiểu chơi đối đầu trực tiếp giữa hai đội trong đó đội thắng hai trận sẽ thắng. Nếu một đội thắng cả hai trận đầu, trận thứ ba sẽ không phải chơi nữa.
+  \end{quotation}
+\begin{itemize}
+  \item Xác suất đội BK thắng trận đầu là $1/2$.
+  \item Với các trận sau, xác suất thắng của BK phụ thuộc vào kết quả của trận trước đó.
+  \item Nếu trận trước thắng, thì trận sau cũng thắng với xác suất $2/3$.
+  \item Nếu trận trước thua, thì trận sau thắng với xác suất chỉ $1/3$.
+  \item Hãy tính xác suất của đội BK thắng, biết rằng họ đã thắng trận đầu tiên.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item $A = $ sự kiện đội BK thắng.
+  \item $B = $ sự kiện đội BK thắng trận đầu tiên.
+    $$
+    \pr[A \mid B] \ = \ ?
+    $$
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \begin{block}{}
+    \begin{center}
+      \includegraphics[width=\textwidth]{fig1713.pdf}
+    \end{center}
+  \end{block}
+\end{frame}
+
+
+  
+
+\begin{frame}
+  \begin{itemize}
+  \item $A = $ sự kiện đội BK thắng.
+  \item $B = $ sự kiện đội BK thắng trận đầu tiên.
+    $$  
+    \pr[A \mid B] = \frac{\pr[A \cap B]}{\pr[B]}\ =\ ?
+    $$
+    
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Xác suất có điều kiện trên  cạnh của cây}
+  \begin{block}{}
+    \begin{center}
+      \includegraphics[width=0.4\textwidth]{fig1713b.pdf}      
+    \end{center}
+  \end{block}
+  \begin{align*}
+    \pr[WW]&=\pr[\text{thắng trận 1}]\cdot \pr[\text{thắng trận 2}\mid
+    \text{thắng trận 1}] \\
+           &= 1/2 \times 2/3 = 1/3
+  \end{align*}
+\end{frame}
+% \begin{frame}
+%   \begin{block}{Luật tích tổng quát}
+%     $$\pr [E_1 \cap E_2 \cap \cdots \cap E_n] = \pr [E_1]\cdot  \pr[E_2 \mid E_1]\cdot \pr[E_3\mid E_1 \cap E_2]\cdots \pr[E_n\mid E_1 \cap E_2 \cap \cdots \cap E_{n-1} ]$$
+%   \end{block}
+% \end{frame}
+
+
+\begin{frame}{Xét nghiệm y khoa}
+  \begin{block}{}
+    Có một bệnh mà $10\%$ dân số bị. Có một test để phát hiện bệnh tiềm ẩn; test này không phải là hoàn hảo, tuy nhiên :
+    \begin{itemize}
+    \item Nếu bạn có bệnh, chỉ có 10\% khả năng test nói bạn
+      không có (false negatives).
+
+    \item Nếu bạn không có bệnh, có 30\% khả năng test nói bạn có (false
+      positives).
+    \end{itemize}
+    Giả sử một người ngẫu nhiên được test. Nếu test là  dương tính, vậy thì xác suất người này mắc bệnh là bao
+    nhiêu?
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{}
+    \begin{center}
+      \includegraphics[width=0.9\textwidth]{fig1714.pdf}
+    \end{center}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item $A$ sự kiện  người này  có bệnh.
+  \item $B$ sự kiện người này có test dương tính.
+$$  
+\pr[A \mid B] = \frac{\pr[A \cap B]}{\pr[B]}\ =\ ?
+$$
+
+$$
+\pr[\text{ test là đúng }]\ =\  ?
+$$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Xác suất hậu nghiệm}
+  \begin{xrcs}
+    Trong trò chơi best-of-three, hãy tính xác suất đội BK đã thắng trận đầu tiên, biết rằng cuối cùng họ đã thắng. 
+  \end{xrcs}
+
+\end{frame}
+
+
+\begin{frame}
+  \begin{thrm}[Bayes]
+    Nếu $\pr[A]$ và $\pr[B]$ khác $0$, vậy thì 
+    $$
+    \pr[B \mid A ] = \frac{\pr[A \mid B ]\cdot \pr[B]}{\pr[A]}.
+    $$
+  \end{thrm}
+  \begin{xrcs}
+    Chứng minh Định lý Bayes.
+  \end{xrcs}
+
+\end{frame}
+
+\begin{frame}
+     Đây là một bài toán được 3 nhà toán học Cassels, Shoenberger và Grayboys đem đố 60 sinh viên và cán bộ y khoa tại Harvard
+Medical School năm 1978. 
+
+  \begin{xrcs}
+    \begin{itemize}
+    \item Giả sử có một loại bệnh mà tỷ lệ người mắc bệnh là
+      1/1000.
+    \item Giả sử có một loại xét nghiệm, mà ai mắc bệnh khi xét
+      cũng ra phản ứng dương tính, nhưng tỷ lệ phản ứng dương tính
+      nhầm (false positive) là 5\% (tức là trong số những người không
+      bị bệnh có 5\% số người thử ra phản ứng dương tính).
+    \item Hỏi khi một
+      người xét nghiệm bị phản ứng dương tính, thì khả năng mắc bệnh
+      của người đó là bao nhiêu?
+    \end{itemize}
+  \end{xrcs}
+\end{frame}
+
+
+\end{document}
+
+

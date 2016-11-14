@@ -1,0 +1,705 @@
+\input{../header/header.tex}
+% \newcommand{\cmark}{{\color{blue}\Large\ding{51}}}%
+% \newcommand{\xmark}{{\color{red}\Large\ding{55}}}%
+\title{Độ lệch}  
+ \author{Toán Chuyên Đề}   
+\institute[HUST]{HUST} 
+ 
+ \maketitle    
+ 
+\begin{frame}{Tài liệu tham khảo} 
+  \begin{itemize}
+  \item Eric Lehman, F Thomson Leighton \& Albert R Meyer,
+    \textit{Mathematics for Computer Science}, 2013
+    \href{https://www.seas.harvard.edu/courses/cs20/MIT6_042Notes.pdf}{\color{blue}(Miễn
+    phí)}
+  \item Michael Mitzenmacher và Eli Upfal, \textit{Probability and Computing}, 2005
+  \item  Nguyễn Tiến Dũng và Đỗ Đức Thái, \textit{Nhập Môn Hiện Đại Xác Suất \& Thống Kê}.
+%  \item Phan .Đ. Diệu, \textit{Logic toán \& cơ sở toán học}. (2003)  
+  \end{itemize}
+\end{frame}
+  
+\section{Phương sai}
+\begin{frame}{Ví dụ}
+	\begin{center}
+%\begin{minipage}{0.45\textwidth}
+	\begin{block}{Trò chơi A}
+		Bạn sẽ thắng $\$2$ với xác suất $2/3$ và thua $\$1$ với xác suất $1/3$.
+	\end{block}
+% \end{minipage}
+% \begin{minipage}{0.5\textwidth}
+	\begin{block}{Trò chơi B}
+		Bạn sẽ thắng $\$1002$ với xác suất $2/3$ và thua $\$2001$ với xác suất $1/3$.		
+	\end{block}
+%\end{minipage}		
+	\end{center}
+	\action<2->{Bạn nên chơi trò chơi nào?} \action<3->{ Kỳ vọng lãi thu được từ mỗi trò chơi là bao nhiêu?}   
+\end{frame}
+
+\begin{frame}{Kỳ vọng lãi}
+\begin{align*}
+\action<+->{	\ex [A] &= 2 \cdot \frac{2}{3} + (-1) \cdot \frac{1}{3} = 1   \\}
+\action<+->{	\ex [B] &= 1002 \cdot \frac{2}{3} + (-2001) \cdot \frac{1}{3} = 1 }
+\end{align*}
+\action<+->{\begin{qstn}
+Trò chơi nào rủi ro hơn?	
+\end{qstn}}
+
+\end{frame}
+
+\begin{frame}
+	\begin{dfntn}
+		\defi{Phương sai} của biến ngẫu nhiên $R$ là 
+		\[	
+		\var [R] = \ex[(R - \ex[R])^2]
+		\]
+	\end{dfntn}
+	Nói cách khác, phương sai là  trung bình của  bình phương độ lệch so với trung bình. 
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Trò chơi A}
+	\begin{align*}
+		\action<+->{A - \ex[A] &= \begin{cases}
+			1 &\text{ với xác suất } 2/3\\
+			-2 &\text{ với xác suất } 1/3\\
+		\end{cases}\\}
+		\action<+->{(A - \ex[A])^2 &= \begin{cases}
+			1 &\text{ với xác suất } 2/3\\
+			4 &\text{ với xác suất } 1/3\\
+		\end{cases} \\}
+		\action<+-> {\ex[(A - \ex[A])^2] &= 1 \cdot \frac{2}{3} + 4 \cdot \frac{1}{3} \\}
+		\action<+->{\var[A] &= 2. }
+	\end{align*}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Trò chơi B}
+	\begin{align*}
+		\action<+->{B - \ex[B] &= \begin{cases}
+			1001 &\text{ với xác suất } 2/3\\
+			-2002 &\text{ với xác suất } 1/3\\
+		\end{cases}\\}
+		\action<+->{(B - \ex[B])^2 &= \begin{cases}
+			1, 002,001 &\text{ với xác suất } 2/3\\
+			4, 008, 004 &\text{ với xác suất } 1/3\\
+		\end{cases} \\}
+		\action<+->{\ex[(B - \ex[B])^2] &= 1,00,001 \cdot \frac{2}{3} + 4,008,004 \cdot \frac{1}{3} \\}
+		\action<+->{\var[B] &= 2,004,002. }
+	\end{align*}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Trò chơi nào rủi ro hơn?}
+		\begin{center}
+	%\begin{minipage}{0.45\textwidth}
+\action<+->{		\begin{block}{Trò chơi A}
+			\[
+			\var[A] = 2
+			\]
+			Lãi suất thường gần với giá trị trung bình $\$1$.
+		\end{block}}
+	% \end{minipage}
+	% \begin{minipage}{0.5\textwidth}
+\action<+->{		\begin{block}{Trò chơi B}
+			\[
+			\var[B] = 2,0004,002
+			\]
+			Lãi suất lệch rất xa so với giá trị trung bình là $\$1$.
+		\end{block}}
+	%\end{minipage}		
+		\end{center}
+\action<+->{Phương sai cao thường gắn với rủi ro nhiều. Ví dụ, trong 10 lần chơi trò chơi A, ta có lãi trung bình $\$10$ nhưng cũng có thể mất $\$10$.	Còn với trò chơi B thì sao?}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{"Đơn vị" của phương sai}
+	\begin{itemize}
+		\item<+-> Biến ngẫu nhiên và phương sai không cùng "đơn vị".
+		\[	
+		\var [R] = \ex[(R - \ex[R])^2]
+		\]
+		\item<+-> Ví dụ, nếu đơn vị của biến ngẫu nhiên là $\$$, vậy thì đơn vị của phương sai là $\$^2$.
+		\item<+-> Độ lệch chuẩn tương tự như phương sai nhưng cùng "đơn vị" với biến ngẫu nhiên.   
+		   
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{dfntn}
+		\defi{Độ lệch chuẩn} $\sigma_R$ của biến ngẫu nhiên $R$ là căn bậc hai của phương sai:
+		\[
+			\sigma_R = \sqrt{\var[R]} = \sqrt{\ex[(R - \ex[R])^2]}.
+		\] 
+	\end{dfntn}
+\action<2->{	\begin{xmpl}
+		Độ lệch chuẩn của biến ngẫu nhiên lãi trong trò chơi A và B là 
+		\begin{align*}
+			\action<3->{\sigma_A &= \sqrt{\var[A]} = \sqrt{2} \approx 1.14, \\}
+			\action<4->{\sigma_B &= \sqrt{\var[B]} = \sqrt{2,004,002} \approx 1416.}
+		\end{align*} 
+	\end{xmpl}}
+		\note{Biến ngẫu nhiên $B$ thực sự lệch so với trung bình bởi hoặc dương $1001$ hoặc âm $2002$; vậy nên độ lệch chuẩn $1416$ mô tả khá hợp lý tình huống này.}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Công thức khác cho phương sai}
+	\begin{lmm}
+		Với mọi biến ngẫu nhiên $R$,
+		\[
+			\var[R] = \ex[R^2] - (\ex[R])^2.
+		\]
+	\end{lmm}
+\action<2->{	\begin{xmpl} Với trò chơi A
+		\begin{align*}
+			\action<3->{\ex[A] &= 2 \cdot \frac{2}{3} + (-1)\cdot \frac{1}{3} = 1 \\}
+			\action<4->{\ex[A^2] &= 2^2 \cdot \frac{2}{3} + (-1)^2\cdot \frac{1}{3} = 3\\}
+			\action<5->{\var[A] &= \ex[A^2] - (\ex[A])^2 = 3 - 1^2 = 2.}
+		\end{align*}
+	\end{xmpl}}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Bài tập}
+	Hãy chứng minh bổ đề trước.
+\end{frame}
+\begin{frame}{Phương sai của biến ngẫu nhiên chỉ báo}
+	\begin{lmm}
+		Xét $B$ là biến ngẫu nhiên chỉ báo với $\pr[B=1] = p$. Vậy thì 
+		\[
+			\var[B] = p(1-p).
+		\]
+	\end{lmm}
+\action<2->{	\begin{xrcs} 
+		Hãy chứng minh bổ đề trên.
+	\end{xrcs}}
+\end{frame}
+%--- Next Frame ---%
+%--- Next Frame ---%
+\begin{frame}{Số bước trung bình dẫn đến lỗi }
+	\begin{itemize}
+		\item<+-> Hệ thống lỗi ở mỗi bước với xác suất $p$.
+		%\item<+-> Vậy trung bình  $1/p$ bước sẽ xảy ra lỗi đầu tiên.
+		\item<+-> Xét $C$ là số bước  để có lỗi đầu tiên  xuất hiện (kể cả bước lỗi). Vậy 
+		\[
+			\ex[C] = \action<+->{1/p.}
+		\]  
+		\item<+-> Phương sai của $C$ bằng bao nhiêu? 
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{align*}
+		\ex[C^2] &= \action<+->{\overbrace{1^2\cdot p}^{\text{lỗi ngay bước đầu tiên}}\ +\  \overbrace{\ex [(C+1)^2]\cdot (1-p)}^{\text{hoặc không}} \\}
+\action<+->{             &= p + \ex[C^2]\cdot (1-p) + 2\cdot \ex[C]\cdot (1-p) + (1-p)\\  }
+%		&\text{Hệ thống có thể lỗi ngay bước đầu tiên hoặc không}\\
+		         \action<+->{&= 1 + \ex[C^2]\cdot (1-p) + 2\cdot \left(\frac{1-p}{p}\right)}
+	\end{align*}
+\action<+->{	Ta được 
+	\[
+		p\cdot \ex[C^2] = \frac{2-p}{p}.
+	\]}
+\action<+->{	và được 
+	\[
+		\ex[C^2] = \frac{2-p}{p^2}.
+	\]}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Bài tập}
+	Hãy tính tiếp $\var[C]$.
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Bài tập: Biến ngẫu nhiên đều}
+	Với biến ngẫu nhiên đều $R$ trên $\{1,2,3, \dots, n\}$, phương sai của $R$ bằng bao nhiêu?
+	
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}
+\begin{thrm}
+Nếu $R_1, R_2$ là hai biến ngẫu nhiên \alert{độc lập}, vậy thì 
+\[
+	\var[R_1 + R_2] = \var[R_1] + \var[R_2].
+\] 	
+\end{thrm}
+\action<2->{Bài tập: Hãy chứng minh định lý trên.}
+	
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}%{Phân phối nhị thức}
+	\begin{lmm}
+	Xét $J$ là biến ngẫu nhiên theo phân bố nhị thức với tham số $n$ và~$p$, vậy thì 
+	\[
+		\var[J] = n p(1-p).
+	\] 		
+	\end{lmm}\pause
+	\begin{block}{Chứng minh}
+		\action<+->{Xem $J$ như số mặt "ngửa" khi tung $n$ đồng xu độc lập, mỗi đồng có xác suất xuất hiện mặt ngửa là $p$.} \action<+->{Đặt 
+		\[
+			J_i = 1\quad  \Leftrightarrow\quad \text{ đồng thứ $i$ ngửa}  
+		\]
+		\vspace{-0.5cm}}
+	
+\action<+->{		Vậy thì 
+		\vspace{-0.5cm}
+		\begin{align*}
+			\var[J] &= \action<+->{\var[J_1 + J_2 + \cdots + J_n]\\}
+				    \action<+->{&= \var[J_1] + \var[J_2] + \cdots + \var[J_n]\\}
+					\action<+->{&= n p(1-p).}
+		\end{align*}}
+		\vspace{-0.5cm}
+		
+	\end{block}
+\end{frame}
+%--- Next Frame ---%
+
+\section{Định lý Markov}
+\begin{frame}{Ví dụ}
+	\begin{itemize}
+		\item<+-> \alert{I}ntelligent \alert{Q}uotients trung bình của mọi người là $100$.
+		\item<+-> Vậy nhiều nhất chỉ $1/3$ dân số có IQ lớn hơn $300$. Tại sao?
+		\item<+-> Suy ra,  xác suất một người ngẫu nhiên có IQ lớn hơn $300$ là $\leq 1/3$.  
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{thrm}[Markov]
+		Nếu $R$ là biến ngẫu nhiên \alert{không âm}, vậy thì với mọi $x > 0$,
+		\[
+			\pr[R \geq x] \leq \frac{\ex[R]}{x}.
+		\] 
+	\end{thrm}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{The Chinese Appetizer Problem}
+	\begin{itemize}
+		\item Có $n$ người ngồi ăn quanh một mâm tròn. 
+		\item<+-> Mỗi người có một món khai vị trước mặt. Giả sử các món khai vị này khác nhau.
+		\item Lợi dụng lúc mọi người mải nói chuyện, ai đó đã quay mâm một cách ngẫu nhiên để mỗi người nhận được ngẫu nhiên một món khai vị.
+		\item Hãy tính xác suất để cả $n$ người đều nhận lại được đúng món khai vị của mình. 
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{The Chinese Appetizer Problem}
+	\begin{itemize}
+		\item<+->  Giả sử mỗi người nhận lại được món khai vị ban đầu của mình với xác suất $1/n$.
+		\item<+->  Kỳ vọng của số người $R$ nhận đúng món khai vị của mình là 
+		\[
+			\ex[R] = n\cdot \frac{1}{n}.
+		\]  
+		
+		\item<+-> Theo định lý Markov,
+		\[
+			\pr[R =n] = \pr[R \geq n] \leq \frac{\ex[R]}{n} = \frac{1}{n}.
+		\] 
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Bài tập}
+	Hãy chứng minh định lý Markov.
+\end{frame}
+
+\begin{frame}{Giả thiết $R$ không âm là quan trọng}
+	\action<+->{Xét biến ngẫu nhiên $R$ với 
+	\[
+		\pr[R = 1000] = 1/2\quad  \text{ và }\quad \pr[R=-1000] = 1/2.
+	\]}
+	\action<+->{Vậy thì 
+	\begin{align*}
+		\ex[R] &= 0. \\
+		\pr[R \geq 1000] &= 1/2 \not= \frac{\ex[R]}{1000} = 0. 
+	\end{align*}}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Biến ngẫu nhiên bị chặn}
+	\begin{itemize}
+		\item<+-> Giả sử IQ trung bình của sinh viên Bách Khoa là $150$.
+		\item<+-> Xác suất một sinh viên Bách Khoa có IQ hơn $200$ khoảng bao nhiêu?
+		\action<+->{\[
+			\pr[B \geq 200] \leq \frac{\ex[B]}{200} = \frac{150}{200} = \frac{3}{4}.  
+		\]}
+		\item<+-> Biết thêm rằng không có sinh viên nào có IQ nhỏ hơn $100$, vậy ước lượng trên có thể giảm xuống bằng bao nhiêu?
+		 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	Xét $T = B + 100$, ta được
+	\[
+		\pr[B \geq 200] = \pr[T \geq 100] \leq \frac{\ex[T]}{100} = \frac{50}{100} = \frac{1}{2}.
+	\]
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{crllr}
+		Nếu $R$ là biến ngẫu nhiên \alert{không âm}, vậy thì với mọi $c > 0$
+		\[
+			\pr\left[R \geq c\cdot \ex[R]\right] \leq 1/c.
+		\]
+	\end{crllr}
+	\begin{proof}
+\action<2->{		Thay $x = c \cdot \ex[R]$ vào định lý Markov.}
+	\end{proof}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{thrm}
+		Xét $R$ là biến ngẫu nhiên thỏa mãn  $R\leq u$. Vậy thì với mọi $x < u$,
+		\[
+			\pr[R \leq x] \leq \frac{u-\ex[R]}{u-x}.
+		\]
+	\end{thrm}
+	\action<2->{Bài tập: Hãy chứng minh định lý trên.}
+\end{frame}
+
+\begin{frame}{Bài tập}
+  \begin{itemize}
+  \item<+-> Giả sử điểm thi giữa kỳ trung bình của lớp Toán Chuyên Đề là
+    $7.5/10$. 
+  \item<+-> Hãy ước lượng tỉ lệ sinh viên trong lớp có điểm nhỏ hơn
+    hoặc bằng $5$.
+  \end{itemize}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Giải}
+	\begin{align*}
+		\action<+->{R &= \text{ điểm ngẫu nhiên của sinh viên } \\}
+		\action<+->{\max{\text{ Điểm }} &= 10 = u \\}
+		\action<+->{\ex[R] &= 7.5 \\}
+		 \action<+->{\pr[R \leq 5.0] &\leq \frac{10.0 - 7.5}{10.0 - 5.0} = \frac{2.5}{5.0} = \frac{1}{2}. }
+	\end{align*}
+\action<+->{	Nói cách khác, chỉ nhiều nhất nửa lớp có điểm $\leq 5$.}
+\end{frame}
+%--- Next Frame ---%
+%--- Next Frame ---%
+\section{Định lý Chebyshev}
+
+\begin{frame}
+	\begin{lmm}
+		Với mọi biến ngẫu nhiên $R$, $\alpha \in \mathbb{R}$, và $x > 0$,
+		\[
+			\pr[|R| \geq x] \leq \frac{\ex[|R|^\alpha]}{x^\alpha}
+		\]
+	\end{lmm}
+\action<2->{	\begin{proof}
+		Do 
+		\[
+			|R| \geq x \quad \Leftrightarrow\quad |R|^\alpha \geq x^\alpha 
+		\]
+		Áp dụng định lý Markov, ta suy ra bổ đề trên.
+	\end{proof}}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{thrm}[Chebyshev]
+		Xét $R$ là một biến ngẫu nhiên và $x \in \mathbb{R}^+$. Vậy thì
+		\[
+			\pr[|R - \ex[R]|\geq x] \leq \frac{\var[R]}{x^2}.
+		\]
+	\end{thrm}
+	\action<2->{Đây là một trường hợp riêng của bổ đề trước. Tại sao?}
+\end{frame}
+
+\begin{frame}
+	\begin{crllr}
+		Xét $R$ là biến ngẫu nhiên, và xét $c$ là một số thực dương 
+		\[
+			\pr[|R - \ex[R]|\geq c\cdot  \sigma_R] \leq \frac{1}{c^2}.
+		\]
+	\end{crllr}
+	\action<2->{Bài tập: Hãy chứng minh hệ quả trên.}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{xmpl}
+		$R = $ IQ của một người ngẫu nhiên. Giả sử 
+		\[
+			R \geq 0,\quad  \ex[R] = 100,\quad \sigma_R = 15 
+		\]
+		Hãy ước lượng 
+		\[
+			\pr[R \geq 250].
+		\]
+	\end{xmpl}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Ước lượng}
+	\begin{itemize}
+		\item<+-> Bởi định lý Markov
+		\action<+->{\[
+			\pr[R \geq 250 ] \leq \frac{\ex[R]}{250} = \frac{100}{250} = 0.4
+		\]}
+		\item<+-> Bởi định lý Chebyshev
+		\begin{align*}
+			\action<+->{\pr[R \geq 250] &= \pr[R - 100 \geq 150] \\}
+			                \action<+->{&= \pr[R - \ex[R] \geq 10\cdot \sigma_R] \\}
+						\action<+->{	&\leq \pr[|R - \ex[R]| \geq 10 \cdot \sigma_R]\\}
+						\action<+->{	&\leq \frac{1}{100}.}
+		\end{align*}
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+	\begin{thrm}
+		Với mọi biến ngẫu nhiên $R$ và mọi $c > 0$
+		\[
+			\pr[R - \ex[R] \geq c\cdot \sigma_R] \leq \frac{1}{c^2 + 1}
+		\]
+	và 
+	\[
+		\pr[R - \ex[R] \leq  -c\cdot \sigma_R] \leq \frac{1}{c^2 + 1}.
+	\]
+	\end{thrm}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Trở lại với {\color{red}IQ}}
+
+	\begin{xmpl}
+		$R = $ IQ của một người ngẫu nhiên. Giả sử 
+		\[
+			R \geq 0,\quad  \ex[R] = 100,\quad \sigma_R = 15 
+		\]
+		Hãy ước lượng 
+		\[
+			\pr[R \geq 250].
+		\]
+	\end{xmpl}
+\end{frame}
+
+\begin{frame}{Ước lượng}
+  \begin{align*}
+\action<+->{  \pr[R \geq 250] &= \pr[R - 100 \geq 150] \\}
+                  \action<+->{&= \pr[R - \ex[R] \geq 10 \cdot \sigma_R] \\}
+                  \action<+->{&\leq \frac{1}{10^2 + 1} = \frac{1}{101}}
+  \end{align*}
+\end{frame}
+\section{Chặn của tổng các biến ngẫu nhiên}
+\begin{frame}{Chặn Chernoff}
+	\begin{minipage}[c]{0.6\textwidth}
+		Tổng của rất nhiều biến ngẫu nhiên có giá trị nhỏ và độc lập có nhiều khả năng sẽ  không vượt quá trung bình của tổng. 
+	\end{minipage}\qquad 
+		\begin{minipage}[c]{0.3\textwidth}
+			\begin{figure}[h]
+			  \centering
+			    \includegraphics[width=\textwidth]{Chernoff.pdf}
+			\end{figure}
+		
+		\end{minipage}
+	\end{frame}
+%--- Next Frame ---%
+\begin{frame}
+	\begin{thrm}[Chặn Chernoff]
+		Xét $T_1,T_2, \dots T_n$ là các biến ngẫu nhiên độc lập thoả mãn $0\leq T_i \leq 1$ với mọi $i$. Xét 
+		\[
+			T = T_1 + T_2 + \cdots + T_n.
+		\]
+		Vậy thì với mọi $c\geq 1$,
+		\[
+			\pr[T \geq c\ \ex[T]] \leq e^{-k\ \ex[T]}
+		\]
+		trong đó $k = c\ \ln(c) - c +1$.
+	\end{thrm}
+\end{frame}
+\begin{frame}
+\begin{xmpl}
+	Tung $1000$ đồng xu độc lập. Hãy tính xác suất của số mặt ngửa vượt quá kỳ vọng ít nhất $20\%$.
+\end{xmpl}	
+
+
+\end{frame}
+
+\begin{frame}
+  \begin{sol}
+\begin{itemize}
+	\item<+-> Đặt $T_i$ là biến ngẫu nhiên chỉ báo cho sự kiện đồng xu thứ $i$ là ngửa.
+	\item<+-> Vậy thì tổng số mặt ngửa là 
+	\[
+		T = T_1 + T_2 + \cdots + T_{1000}.
+	\] 
+	
+	\item<+-> Cả hai điều kiện của Chernoff đều thoả mãn: Các biến $T_i$ độc lập và $T_i \in [0,1]$. 
+	\item<+-> Theo định lý Chernoff
+	\[
+		\pr[T \geq c\ \ex[T]] \leq e^{-k\ \ex[T]}
+	\] 
+	với $c = 1.2$ và  $k = c\ \ln(c) - c + 1 = 0.0187\dots$.
+\end{itemize}    
+  \end{sol}
+\end{frame}
+\begin{frame}
+\begin{align*}
+	\pr[T \geq 1.2\ \ex[T]] &\leq e^{-k\ \ex[T]}\\
+	                       &= e^{-(0.0187\dots)\cdot 500}\\
+						   &< 0.0000834
+\end{align*}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Ảnh hưởng của số biến và độ lệch }
+Xác suất sẽ nhỏ hơn rất nhiều nếu số đồng xu tăng lên. 
+                  \begin{xmpl}
+                    nếu tung $1$ triệu đồng xu, xác suất để số mặt
+                    ngửa vượt quá kỳ vọng ít nhất $20\%$ chỉ nhiều
+                    nhất là
+                    \[
+                    e^{-(0.0187)\cdot 500000} < e^{-9392}.
+                    \]
+                  \end{xmpl}\pause 
+
+	
+Xác suất cũng sẽ nhỏ hơn rất nhiều nếu độ lệch tăng lên.
+\begin{xmpl}
+  tung $1000$ đồng xu, xác suất để số mặt ngửa vượt quá kỳ vọng ít
+  nhất $30\%$ chỉ nhiều nhất là
+  \[
+  e^{-(0.0410)\cdot 500} < e^{-20.5}< 1/1,000,000,000.
+  \]
+\end{xmpl}
+
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Trò chơi Pick-4}
+	\begin{itemize}
+		\item<+-> Bạn chọn một số bốn chữ số trong khoảng $0000$ đến $9999$.
+		\item<+-> Nếu số bạn chọn là số ngẫu nhiên chương trình chọn, bạn sẽ được $\$5,000$.
+		\item<+-> Xác suất thắng của bạn là $1/10,000$.
+		\item<+-> Nếu có $10$ triệu người chơi, kỳ vọng số người thắng là $1000$. 
+		
+		\item<+-> Nỗi lo của công ty sổ xố: Số người thắng ít nhất là $2000$.
+		\item<+-> Hãy tính xác suất để số người thắng ít nhất là $2000$.    
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}[t]{Trò chơi Pick-4 (lời giải)}
+	\begin{itemize}
+		
+		\item<+-> Đặt $T_i$ là biến chỉ số cho sự kiện người thứ $i$ thắng.
+		\item<+-> Số người thắng là biến $	T = T_1 + T_2 + \cdots + T_{10,000,000}$.
+
+		\item<+-> Vì số người thắng gấp $2$ lần kỳ vọng, ta chọn $c = 2$.
+		
+		\item<+-> Ta giả sử người chơi chọn số ngẫu nhiên đều và  độc lập. Vậy thì   Theo định lý Chernoff
+		\begin{align*}
+			k = c\ \ln(c) - c + 1 &= 0.386 \\
+			\pr[T \geq 2000] &= \pr[T \geq 2\ \ex[T]] \\
+			                 &\leq e^{-k\ \ex[T]} \\
+							 &=e^{-(0.386\dots)\cdot 1000}\\
+							 &< e^{-386}
+		\end{align*}  
+		Vậy hầu như không bao giờ công ty sổ xố phải trả gấp đôi kỳ vọng.
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Trò chơi Pick-4 (tiếp)}
+\begin{xrcs}
+			Hãy tính xác suất để số người thắng  cao hơn $10\%$ so với kỳ vọng.
+\end{xrcs}
+\action<2->{\begin{align*}
+	k = 1.1\ \ln(1.1) - 1.1 + 1 &= 0.00484 \\
+	\pr[T \geq 1.1\ \ex[T]] &\leq e^{-k\ \ex[T]} \\
+	                       &= e^{-(0.00484) \cdot 1000}\\
+						   &< 0.01
+\end{align*}}
+\end{frame}
+%--- Next Frame ---%
+
+\section{Ứng dụng: Bài toán cân bằng tải}
+\begin{frame}
+  \begin{block}{Cân bằng tải}
+    \begin{itemize}
+    \item Hệ thống với $n$ công việc $B_1, B_2, \dots, B_n$ đến theo dòng.
+    \item Công việc $B_i$ cần $L_i$ thời gian
+	 
+	 \item  Các công việc cần xử lý ngay
+      lập tức trên $m$ máy $S_1, S_2, \dots, S_n$.
+    \item Hãy tìm cách gán mỗi công việc cho mỗi máy để hệ thống đảm bảo cân bằng tải.
+    \end{itemize}
+  \end{block}\pause 
+
+  \begin{block}{Phương pháp}
+    Gán một cách ngẫu nhiên mỗi công việc đến cho một máy.  
+  \end{block}
+\end{frame}
+
+\begin{frame}{Dữ liệu thực tế}
+	\begin{itemize}
+		\item Số công việc $n = 100,000$.
+		\item Số lượng máy $m = 10$. 
+		\item Đặt $$L = \sum_{j=1}^{n} L_j.$$
+		\item Giả sử $L = 25,000$ giây.
+		
+		\item Vậy tải trung bình trên mỗi máy 
+		\[
+			\frac{L}{m} = \frac{25,000}{10} = 2500.
+		\]  
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+\begin{frame}{Phân tích}
+  \begin{itemize}
+  \item Đặt $R_{ij} $ là tải trên  máy $S_i$ từ công việc $B_j$. Tức là 
+    $$
+    R_{ij} = \begin{cases}
+      L_j &\text{nếu máy $S_i$ được gán công việc $B_j$ }\\
+      0 & \text{ngược lại.}
+    \end{cases} 
+    $$
+  \item Vậy thì tải của máy $S_i$ là $$R_i =  R_{i1} + R_{i2} + \cdots + R_{in}.$$
+  \item Ta được 
+    \begin{align*}
+		\ex[R_i] &= \sum_{j=1}^{n} \ex[R_{ij}] \\
+		         &= \sum_{j=1}^n L_j/m\\
+				 &= L/m.
+    \end{align*}
+	Đây là giá trị tối ưu cân bằng tải.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Phân tích 2: Tải của mỗi máy $R_i$}
+	\begin{itemize}
+		\item 	Giả sử các $0\leq R_{ij}\leq 1$, theo định lý Chernoff,
+	\[
+		\pr[R_i \geq c\ L/m] \leq e^{-k\ L/m}
+	\]
+	với $k = c \ln(c) - c + 1$.
+	
+	
+	\item Với $c = 1.1$, ta được $k = 0.0048$,
+	\item và với  $L = 25,000$ ta được
+	\[
+		\pr[R_i \geq 1.1\times L/m] \leq e^{-0.0048\times 2500} \leq 1/160,000.
+	\]
+	\end{itemize}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}{Phân tích 3: Máy phải chịu tải nhiều nhất}
+	\begin{align*}
+		&\pr[\text{ máy chịu tải nhiều nhất } \geq c\ L/m\ ] \\
+		&= \pr[\ (R_1 \geq c\ L/m)\  \cup\ (R_2 \geq c\ L/m)\  \cup\ \cdots\ \cup\ (R_m \geq c\ L/m)\  ]\\
+		&\leq \sum_{i=1}^m \pr[R_i \geq c\ L/m] \\
+		&\leq \frac{m}{160,000} = \frac{1}{16,000}. 
+	\end{align*}
+\end{frame}
+%--- Next Frame ---%
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

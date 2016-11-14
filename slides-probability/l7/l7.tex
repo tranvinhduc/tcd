@@ -1,0 +1,458 @@
+\input{../header/headerhandout.tex}
+% \newcommand{\cmark}{{\color{blue}\Large\ding{51}}}%
+% \newcommand{\xmark}{{\color{red}\Large\ding{55}}}%
+\title{Kỳ vọng 2} 
+ \author{Toán Chuyên Đề}   
+\institute[HUST]{HUST}
+ 
+\maketitle  
+
+\begin{frame}{Tài liệu tham khảo}
+  \begin{itemize}
+  \item Eric Lehman, F Thomson Leighton \& Albert R Meyer,
+    \textit{Mathematics for Computer Science}, 2013
+    \href{https://www.seas.harvard.edu/courses/cs20/MIT6_042Notes.pdf}{\color{blue}(Miễn
+    phí)}
+  \item Michael Mitzenmacher và Eli Upfal, \textit{Probability and Computing}, 2005
+  \item  Nguyễn Tiến Dũng và Đỗ Đức Thái, \textit{Nhập Môn Hiện Đại Xác Suất \& Thống Kê}.
+%  \item Phan .Đ. Diệu, \textit{Logic toán \& cơ sở toán học}. (2003)  
+  \end{itemize}
+\end{frame}
+ 
+\begin{frame}
+	\begin{thrm}
+		Với mọi biến ngẫu nhiên $R_1, R_2, \dots, R_n$,
+		\[
+			\ex[R_1 + R_2 +\cdots + R_n] = \ex[R_1] + \ex[R_2] + \cdots + \ex[R_n].
+		\]
+	\end{thrm}
+\end{frame}
+%--- Next Frame ---%
+
+\begin{frame}
+  \frametitle{Kỳ vọng của phân phối nhị thức} 
+  \begin{qstn}
+    Tung $n$ đồng xu, mỗi đồng có xác suất xảy ra mặt ngửa là
+    $p$. Kỳ vọng của số mặt ngửa bằng bao nhiêu?  
+  \end{qstn}
+\action<2->{Đặt 
+$$
+J = \text{ số mặt ngửa }
+$$}
+\action<3->{Vậy thì $J$ có phân phối nhị thức với tham số $n$ và $p$: 
+\[
+\pr[J=k] = \binom{n}{k}p^k(1-p)^{n-k}.
+\]}
+\end{frame}
+
+
+\begin{frame}{Một lời giải khó}
+\begin{align*}
+\ex[J\ ] = \sum_{k=0}^n k\cdot \pr[J = k] &= \sum_{k=0}^nk\
+                                        \binom{n}{k}p^k(1-p)^{n-k}\\
+                                     &={\color{red}pn.}
+\end{align*} 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Một lời giải dễ }
+  
+  \action<+->{Xét các biến ngẫu nhiên chỉ báo 
+$$
+J_i =
+\begin{cases}
+  1 &\text{ nếu đồng xu thứ $i$ ngửa }\\
+ 0 & \text{ ngược lại }
+\end{cases}
+$$}
+\action<+->{Vậy thì số mặt ngửa là 
+\[
+J = J_1 + J_2 + \cdots + J_n.
+\]}
+\action<+->{Ta được 
+\[
+\ex[J\ ] = \action<+->{\sum_{i=1}^n \pr[J_i=1]} \action<+->{= pn.}
+\]}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Chứng minh bằng phương pháp xác suất }
+  Ta cũng vừa chứng minh đẳng thức phức tạp 
+$$
+\sum_{k=0}^nk\ \binom{n}{k}p^k(1-p)^{n-k} = pn.
+$$
+\end{frame}
+
+
+\begin{frame}
+  \begin{prblm}[Coupon Collector]
+    \begin{itemize}
+    \item Giả sử mỗi hộp bỏng ngô có kèm một chiếc tem.  
+    \item Có $n$ loại
+      tem khác nhau: xanh, đỏ, tím, vàng, cam... 
+    \item Nếu bạn sưu tầm được  đủ mỗi  loại tem ít nhất một chiếc  thì bạn sẽ được
+      nhận phần thưởng. 
+    \item Giả sử chiếc tem trong mỗi hộp bỏng ngô được
+      chọn ngẫu nhiên và theo phân phối đều.  
+    \item Hỏi rằng bạn phải mua
+      bao nhiêu hộp bỏng ngô thi mới được mỗi loại ít nhất một chiếc
+      tem?
+    \end{itemize}
+
+  \end{prblm}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ý tưởng }
+  \begin{itemize}
+  \item<+-> Giả sử ta có $5$ loại tem và ta có dãy tem sau đây
+$$
+\text{xanh}\quad \text{đỏ}\quad \text{đỏ} \quad \text{tím} \quad
+\text{xanh} \quad \text{đỏ} \quad \text{vàng} \quad \text{xanh} \quad
+\text{nâu}
+$$
+\item<+-> Ta phân hoạch thành các đoạn
+$$
+\underbrace{\text{xanh}}_{X_0}\quad \underbrace{\text{đỏ}}_{X_1}\quad
+\underbrace{\text{đỏ} \quad \text{tím}}_{X_2} \quad
+\underbrace{\text{xanh} \quad\text{đỏ}\quad \text{vàng}}_{X_3} \quad
+\underbrace{\text{xanh} \quad \text{nâu}}_{X_4}
+$$
+theo quy tắc \alert{kết thúc một đoạn ngay khi ta gặp loại tem mới}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lời giải bài toán Coupon Collector}
+  \begin{itemize}
+  \item<+-> Xét $X_k$ là độ dài của đoạn thứ $k$.
+  \item<+-> Tổng số hộp bỏng ngô ta phải mua để có đủ $n$ loại tem là
+    $$
+    T = X_0 + X_1 + X_2 + \cdots + X_{n-1}.
+    $$ 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kỳ vọng của $X_k$}
+  \begin{itemize}
+  \item<+-> Bắt đầu đoạn thứ $k$ ta có $k$ loại tem khác nhau, và đoạn thứ
+    $k$ kết thúc khi ta có loại tem mới. 
+  \item<+-> Mỗi hộp bỏng ngô  có
+    thể kèm  một kiểu tem mới với xác suất là \action<+->{$$\frac{n-k}{n}.$$}
+  \item<+-> Vậy thì 
+    $$
+    \ex[X_k] = \action<+->{ \frac{n}{n-k}.}
+    $$
+Tại sao?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lời giải bài toán Coupon Collector }
+  \begin{align*}
+    \ex[T] &= \action<+->{ \ex[X_0 + X_1 + \cdots + X_{n-1}] \\}
+           \action<+->{&= \ex[X_0] + \ex[X_1] + \cdots + \ex[X_{n-1}] \\}
+           \action<+->{&= \frac{n}{n-0} + \frac{n}{n-1} + \cdots + \frac{n}{3} +
+             \frac{n}{2} + \frac{n}{1} \\}
+           \action<+->{&= n\left(\frac{1}{n-0} + \frac{1}{n-1} + \cdots + \frac{1}{3} +
+             \frac{1}{2} + \frac{1}{1}\right) \\}
+           \action<+->{&\approx n\ln n.}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ví dụ}
+  Trung bình ta cần tung con xúc xắc khoảng
+  $$
+   6\times \left( 1 + 1/2 + 1/3 + 1/4 + 1/5 + 1/6\right )  \approx 14.7
+  $$
+lần để có đủ cả $6$ mặt xuất hiện.
+
+\end{frame}
+\begin{frame}
+	\begin{thrm}
+		Xét  không gian xác suất $\S$ và các sự kiện $A_1, A_2, \dots, A_n \subseteq \S$, vậy kỳ vọng của số lượng   sự kiện  xuất hiện bằng 
+		\[
+			 \pr[A_1] + \pr[A_2] + \cdots + \pr[A_n]
+		\]
+	\end{thrm}
+      \end{frame}
+      
+\begin{frame}
+          \begin{block}{Chứng minh.}
+          \action<+->{Đặt $$T_i(w) =
+          \begin{cases}
+            1 &\text{ nếu } w \in A_i\\
+            0 &\text{ ngược lại }
+          \end{cases}$$
+tức $T_i = 1$ nếu và chỉ nếu $A_i$ xảy ra;} \action<+->{ và  đặt 
+$$T= T_1 + T_2 + \cdots + T_n.
+$$}
+\action<+->{Ta có 
+\vspace{-0.5cm}
+\begin{align*}
+  \ex[T] &= \action<+->{\sum_{i=1}^n\ex[T_i ]   \\}
+         \action<+->{&= \sum_{i=1}^n\pr[T_i =1]\\}
+         \action<+->{&=\sum_{i=1}^n\pr[A_i].}
+\end{align*}
+}
+\vspace{-0.7cm}
+        \end{block}
+
+\end{frame}
+\begin{frame}
+%--- Next Frame ---%
+        \begin{xmpl}
+          Tung $n$ đồng xu và đặt 
+          \begin{align*}
+            A_i &= \text{ sự kiện đồng xu thứ $i$ ngửa } \\
+            T &= \text{ số mặt ngửa khi tung  $n$ đồng }
+          \end{align*}
+Ta có 
+\begin{align*}
+  \ex[T] &= \action<2->{\pr[A_1] + \pr[A_2] + \cdots + \pr[A_n] \\}
+         \action<3->{&= 1/2 + 1/2 + \cdots + 1/2\\}
+         \action<4->{&= n/2 }
+\end{align*}
+        \end{xmpl} 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Chứng minh khó hơn }
+  \begin{align*}
+    \ex[T] &= \sum_{i=1}^n i\cdot  \pr[T = i]&\\
+           &= \sum_{i=1}^n i \cdot \binom{n}{i} 2^{-n}&  \text{(Giả sử các sự
+                                                  kiện này 
+             độc lập) }\\
+           &= n/2
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Chứng minh bằng phương pháp xác suất}
+  Như vậy ta đã chứng minh đẳng thức 
+  $$
+  \sum_{i=1}^n i \binom{n}{i}  = n\cdot 2^{n-1}
+  $$
+\end{frame}
+
+\begin{frame}
+  \begin{thrm}
+    $$
+    \underbrace{ \pr[T\geq 1]}_{\text{\color{blue!80}xác suất ít nhất một sự kiện $A_i$ xuất
+        hiện }} \leq \ex[T]
+    $$
+  \end{thrm}
+\action<2->{
+  \begin{proof}
+    \begin{align*}
+      \ex[T] &= \sum_{i=1}^{\infty}\pr[T\geq 1] \\
+             &\geq  \pr[T \geq 1].
+    \end{align*}
+  \end{proof}}
+\end{frame}
+
+\begin{frame}
+  \begin{crllr}
+    \begin{align*}
+      \pr[T\geq 1] \leq \sum_{i=1}^{\infty} \pr[A_i].
+    \end{align*}
+  \end{crllr}
+\end{frame}
+
+\begin{frame}
+  \begin{xmpl}
+    \begin{itemize}
+    \item Nếu $n = 1000$ và $\pr[A_i] = 1/100$, vậy thì
+    $$
+    \ex[T] = 10.
+    $$
+  \item Nếu với mọi $i,j$ ta có 
+    $\pr[A_i\mid  A_j] = 1, 
+    $
+    vậy thì 
+    $$
+    \pr [T \geq 1] = 1/100 < 10.
+    $$
+  \end{itemize}
+  \end{xmpl} 
+\end{frame}
+
+\begin{frame}
+  \begin{thrm}[Luật Murphy] Xét các sự kiện độc lập $A_1, \dots,
+    A_n$. Vậy thì 
+    $$
+    \pr[T = 0] \leq e^{-\ex[T]}.
+    $$ 
+  \end{thrm}
+  \begin{proof}
+\vspace{-0.5cm}
+    \begin{align*}
+      \pr[T=0] &= \pr[\overline{A_1} \cap \overline{A_2} \cap \cdots
+                 \cap \overline{A_n}] &\\
+               &= \prod_{i=1}^n \pr[\overline{A_i}] &\text{(do độc lập)}\\
+               &= \prod_{i=1}^n (1-\pr[A_i]) &\text{(\text{do
+                                               $1-x \leq e^{-x}$)}}\\
+               &\leq \prod_{i=1}^n e^{-\pr[A_i]} = e^{-\sum_{i=1}^n
+                 \pr[A_i] }
+               = e^{-\ex[T]}. 
+    \end{align*}
+
+\vspace{-0.9cm}
+  \end{proof}
+\end{frame}
+
+\begin{frame}
+  \begin{crllr}
+    Nếu mong đợi  ít nhất $10$  sự kiện độc lập xuất hiện, vậy thì xác
+    suất \textbf{không} có sự kiện nào xuất hiện  $\leq e^{-10} < 1/22,000$. 
+  \end{crllr}
+\end{frame}
+
+\begin{frame}
+  \begin{thrm}[Luật tích]
+    Với mọi cặp biến ngẫu nhiên \defi{độc lập} $R_1, R_2$
+    $$
+    \ex[R_1 \cdot R_2] = \ex[R_1]\cdot \ex[R_2].
+    $$
+  \end{thrm}
+
+  \begin{xmpl}
+    Tung hai con xúc xắc sáu mặt độc lập và đặt 
+$$
+R_i = \text{ kết quả của con xúc xắc } i 
+$$ 
+Ta có 
+    \begin{align*}
+      \ex[R_1 \cdot R_2] &= \ex[R_1] \cdot \ex[R_2] \\
+                        &= 7/2 \cdot 7/2 = 49/4.
+    \end{align*}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Điều kiện độc lập là cần thiết }
+  \begin{xmpl}
+    \begin{align*}
+      \ex[R_1\cdot R_1] &= \ex[R_1^2] \\
+                        &=\sum_{i=1}^{6} i^2 \pr[R_1 = i] \\
+                        &= \frac{1}{16}\left( 1+4+9+ 16 + 25 + 36
+                          \right)\\
+                        &= 15\frac{1}{6} \not=
+                          \left(3\frac{1}{2}\right)^2 = \ex[R_1]^2
+    \end{align*}
+  \end{xmpl}
+\end{frame}
+
+\begin{frame}
+  \begin{crllr}
+    Nếu $R_1, R_2, \dots, R_n$ là các biến ngẫu nhiên độc lập, vậy thì 
+    $$
+    \ex[R_1 \cdot R_2  \cdots R_n] = \ex[R_1]\cdot \ex[R_2] \cdots \ex[R_n].
+    $$
+  \end{crllr}
+\end{frame}
+
+\begin{frame}
+  Chứng minh rằng: Với mọi hằng số $a,b$ và mọi biến ngẫu nhiên $R$, 
+  $$
+  \ex[a\cdot R  + b] = a \cdot  \ex[R] + b.
+  $$ 
+\end{frame} 
+
+\begin{frame}
+  \begin{qstn}
+    Liệu đẳng thức  $$\ex\left[\frac{1}{R}\right] = \frac{1}{\ex[R]}$$ có đúng?
+  \end{qstn}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Nghịch lý RISC về   kích thước mã nguồn}
+  \begin{center}
+    \begin{tabular}{lccc}
+      Benchmark& RISC &CISC &CISC/RISC \\
+      \hline 
+      E-string search  &150 &120 &0.8 \\
+      F-bit test       &120 &180 &1.5\\
+      Ackerman         &150 &300 &2.0\\
+      Rec Sort         &2800 &1400 &0.5 \\
+\hline
+                       &3220 &2000 
+ 
+    \end{tabular}
+  \end{center}
+    \begin{align*}
+      \text{Trung bình }[\text{ CISC/RISC }]&=\frac{1}{4} \times \left(  0.8 +
+                                 1.5 +   2.0 +   0.5 \right)\\
+      &= 1.2
+    \end{align*}
+
+  \begin{block}{Kết luận}
+    ``Các chương trình CISC là dài hơn 20\% về trung bình.'' 
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Nghịch lý RISC về   kích thước mã nguồn 2}
+  \begin{center}
+    \begin{tabular}{lccc}
+      Benchmark & RISC &CISC &RISC/CISC \\
+      \hline 
+      E-string search  &150 &120 &1.25 \\
+      F-bit test       &120 &180 &0.67\\
+      Ackerman         &150 &300 &0.5\\
+      Rec Sort         &2800 &1400 &2.0 \\
+\hline
+      Trung bình                  & & &1.1
+ 
+    \end{tabular}
+  \end{center}
+
+  \begin{block}{Kết luận}
+    ``Các chương trình RISC là dài hơn 10\% về trung bình.'' 
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tại sao?}
+  \begin{itemize}
+  \item Xét biến ngẫu nhiên $R$ là độ dài của chương trình viết bằng  RISC, 
+  \item và biến ngẫu nhiên  $C$ là độ dài của chương trình viết bằng
+    CISC.
+  \item  Tính toán  
+    $$
+    \ex[C/R] = 1.2 \qquad \text{\cmark}
+    $$
+  \item Kết luận  ``chương trình CISC là dài hơn 20\% về trung bình''
+    có nghĩa rằng 
+    $$
+    \ex[C] = 1.2\  \ex[R]\qquad  \text{\xmark}
+    $$
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Một kết luận hợp lý }
+  \begin{align*}
+    \ex[R] &= \sum_{i \in Range(R)} i\cdot \pr[R = i]\\
+           &= \frac{150}{4} + \frac{120}{4}
+             +\frac{150}{4} + \frac{2800}{4}= 805.
+  \end{align*}
+  \begin{align*}
+    \ex[C] &= \sum_{i \in Range(C)} i\cdot \pr[C = i]\\
+           &= \frac{120}{4} + \frac{180}{4} +\frac{300}{4}
+             +\frac{1400}{4} = 500.
+  \end{align*}
+Vậy $\ex[R]/\ex[C] = 1.61$. 
+\begin{block}{Kết luận}
+    ``Chương trình RISC là dài hơn 61\% về trung bình.''   
+\end{block}
+\end{frame}
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

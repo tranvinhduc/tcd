@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {vietnamese}
+\beamer@sectionintoc {1}{Phương sai}{3}{0}{1}
+\beamer@sectionintoc {2}{Định lý Markov}{57}{0}{2}
+\beamer@sectionintoc {3}{Định lý Chebyshev}{85}{0}{3}
+\beamer@sectionintoc {4}{Chặn của tổng các biến ngẫu nhiên}{105}{0}{4}
+\beamer@sectionintoc {5}{Ứng dụng: Bài toán cân bằng tải}{128}{0}{5}

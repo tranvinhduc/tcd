@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {vietnamese}
+\beamer@sectionintoc {1}{Trò chơi Monty Hall}{3}{0}{1}
+\beamer@sectionintoc {2}{Những con xúc xắc kỳ lạ}{19}{0}{2}
