@@ -16,6 +16,7 @@
     "../header/header")
    (LaTeX-add-xcolor-definecolors
     "blue"
-    "blue!70"))
+    "blue!70"
+    "blue!60"))
  :latex)
 
